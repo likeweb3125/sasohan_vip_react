@@ -274,6 +274,16 @@
     .square_list_wrap{padding-top: 168px;}
     .square_list_cont ul li{width: calc(50% - 34px);margin: 0 68px 50px 0;}
     .square_list_cont ul li:nth-child(2n){margin-right: 0;}
+    /* 매니저 상세 */
+    .manager_detail_cont>div{width: 100% !important;}
+    .manager_detail_cont .profile_box{display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex;padding: 20px 30px;margin-bottom: 50px;}
+    .manager_detail_cont .profile_box .img_box{width: 300px;border-radius:8px;}
+    .manager_detail_cont .profile_box .txt_box{width: calc(100% - 300px);display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex;-webkit-box-orient: vertical; -ms-flex-direction: column-reverse; flex-direction: column-reverse;-webkit-box-pack: justify; -ms-flex-pack: justify;-webkit-justify-content: space-between; justify-content: space-between;}
+    .manager_detail_cont .profile_box .count_ul{margin-bottom: 0;border-radius: 0;}
+    .manager_detail_cont .profile_box .txt_box>div{padding: 20px 32px;}
+    .manager_detail_cont .msg_feed_box .square_list_cont ul li{width: calc(50% - 34px);margin: 0 68px 50px 0 !important;}
+    .manager_detail_cont .msg_feed_box .square_list_cont ul li:nth-child(2n){margin-right: 0 !important;}
+   
 
 
     /* 랭킹 */
@@ -593,7 +603,6 @@
     .form_cont>.tit_box .tit{font-size: 32px;}
     .shadow_box>.inner{padding: 40px 20px;}
 
-
     /* 마이페이지 */
     .mypage_cont .top_tit{font-size: 24px;}
     .mypage_cont .info_box{padding: 40px 10px;display: block;}
@@ -612,6 +621,8 @@
     .square_list_wrap .list_tit_box .tit{font-size: 36px;}
     .square_list_wrap .list_tit_box .tit::before{height: 12px;}
     .square_list_wrap .list_tit_box .txt{font-size: 18px;}
+    .list_tit_box .tit{font-size: 36px;}
+    .list_tit_box .tit::before{height: 12px;}
     .list_search_box{padding: 20px 16px;border-radius: 16px;}
     .list_search_box>div{display: block;}
     .list_search_box>div>div{display: block;}
@@ -631,6 +642,19 @@
     .manager_tag{padding: 0;top: 8px;left: 8px;}
     .manager_tag img{width: 36px;}
     .manager_tag p{display: none;}
+    /* 매니저 상세 */
+    .manager_detail_cont{padding: 100px 0;}
+    .manager_detail_cont .profile_box{display: block;padding: 20px 20px 40px;margin-bottom: 40px;}
+    .manager_detail_cont .profile_box .img_box{width: 100%;border-radius: 8px 8px 0 0;}
+    .manager_detail_cont .profile_box .txt_box{width: 100%;display: block;}
+    .manager_detail_cont .profile_box .count_ul{border-radius: 0 0 8px 8px;}
+    .manager_detail_cont .profile_box .txt_box>div{padding: 20px 0 0;}
+    .manager_detail_cont .msg_feed_box>.box{margin-bottom: 40px;}
+    .manager_detail_cont .msg_feed_box>.box .box_tit{padding-bottom: 16px;}
+    .manager_detail_cont .msg_feed_box .msg_list_box .msg_list>li{padding-left: 0;}
+    .manager_detail_cont .msg_feed_box .msg_list_box .msg_list>li .txt_box .txt{max-width: 100%;}
+    .manager_detail_cont .msg_feed_box .msg_list_box .msg_list>li .txt_box .txt + div{padding-left: 0;width: 100%;}
+    .manager_detail_cont .msg_feed_box .square_list_cont ul li{width: calc(50% - 7.5px);margin: 0 15px 32px 0 !important;}
 
     
     /* 랭킹 */

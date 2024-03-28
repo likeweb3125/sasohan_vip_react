@@ -16,6 +16,7 @@ const FeedPop = () => {
     const dispatch = useDispatch();
     const user = useSelector((state)=>state.user);
     const popup = useSelector((state)=>state.popup);
+    const common = useSelector((state)=>state.common);
     const feed_content = enum_api_uri.feed_content;
     const feed_favorite = enum_api_uri.feed_favorite;
     const feed_delt = enum_api_uri.feed_delt;
@@ -25,7 +26,6 @@ const FeedPop = () => {
     const feed_comment_delt = enum_api_uri.feed_comment_delt;
     const [confirm, setConfirm] = useState(false);
     const [feedDeltConfirm, setFeedDeltConfirm] = useState(false);
-    const [feedDeltOkConfirm, setFeedDeltOkConfirm] = useState(false);
     const [commentDeltConfirm, setCommentDeltConfirm] = useState(false);
     const [feedData, setFeedData] = useState({});
     const [imgList, setImgList] = useState([]);
@@ -45,7 +45,6 @@ const FeedPop = () => {
         if(popup.confirmPop === false){
             setConfirm(false);
             setFeedDeltConfirm(false);
-            setFeedDeltOkConfirm(false);
             setCommentDeltConfirm(false);
         }
     },[popup.confirmPop]);
@@ -107,6 +106,19 @@ const FeedPop = () => {
         getFeed();
         getCommentList();
     },[]);
+
+
+    //피드 수정시 피드내용, 댓글리스트 가져오기
+    useEffect(()=>{
+        if(common.feedRefresh){
+            getFeed();
+            getCommentList();
+
+            setEditBoxOn(null);
+            setImgOn(0);
+            dispatch(feedRefresh(false));
+        }
+    },[common.feedRefresh])
 
 
     //피드   ----------------------------------
@@ -212,13 +224,7 @@ const FeedPop = () => {
         .then((res)=>{
             if(res.status === 200){
                 dispatch(feedRefresh(true));
-                dispatch(confirmPop({
-                    confirmPop:true,
-                    confirmPopTit:'알림',
-                    confirmPopTxt:'피드가 삭제되었습니다.',
-                    confirmPopBtn:1,
-                }));
-                setFeedDeltOkConfirm(true);
+                closePopHandler();
             }
         })
         .catch((error) => {
@@ -248,7 +254,6 @@ const FeedPop = () => {
             to_id = id;
         }
 
-
         //새로 등록일때
         if(commentEditOn === null){
             const body = {
@@ -267,7 +272,6 @@ const FeedPop = () => {
                 if(res.status === 200){
                     setCommentValue('');
                     getCommentList();
-    
                     setReplyValue('');
                     setReplyBoxOn(null);
                 }
@@ -286,39 +290,33 @@ const FeedPop = () => {
         }
         //댓글, 답글 수정일때
         else{
-
-
             const body = {
                 comment_idx : replyBoxOn,
                 content : content
             };
-
-            console.log(body);
     
-            // axios.put(feed_comment_modify,body,{
-            //     headers: {
-            //         Authorization: `Bearer ${user.userToken}`,
-            //     },
-            // })
-            // .then((res)=>{
-            //     if(res.status === 200){
-            //         setCommentValue('');
-            //         getCommentList();
-    
-            //         setReplyValue('');
-            //         setReplyBoxOn(null);
-            //     }
-            // })
-            // .catch((error) => {
-            //     const err_msg = CF.errorMsgHandler(error);
-            //     dispatch(confirmPop({
-            //         confirmPop:true,
-            //         confirmPopTit:'알림',
-            //         confirmPopTxt: err_msg,
-            //         confirmPopBtn:1,
-            //     }));
-            //     setConfirm(true);
-            // });
+            axios.put(feed_comment_modify,body,{
+                headers: {
+                    Authorization: `Bearer ${user.userToken}`,
+                },
+            })
+            .then((res)=>{
+                if(res.status === 200){
+                    getCommentList();
+                    setReplyValue('');
+                    setReplyBoxOn(null);
+                }
+            })
+            .catch((error) => {
+                const err_msg = CF.errorMsgHandler(error);
+                dispatch(confirmPop({
+                    confirmPop:true,
+                    confirmPopTit:'알림',
+                    confirmPopTxt: err_msg,
+                    confirmPopBtn:1,
+                }));
+                setConfirm(true);
+            });
         }
     };
 
@@ -552,9 +550,6 @@ const FeedPop = () => {
 
         {/* 피드삭제 confirm팝업 */}
         {feedDeltConfirm && <ConfirmPop onClickHandler={feedDeltHandler} />}
-
-        {/* 피드삭제 완료confirm팝업 */}
-        {feedDeltOkConfirm && <ConfirmPop closePop="custom" onCloseHandler={closePopHandler} />}
 
         {/* 댓글삭제 confirm팝업 */}
         {commentDeltConfirm && <ConfirmPop onClickHandler={commentDeltHandler} />}

@@ -54,7 +54,6 @@ exports.enum_api_uri = {
     manager_feed_list: `${api_uri}/v1/main/feed-list/:m_id`,
 
     feed_img: `${api_uri}/v1/manager/manager-image-add`,
-    feed_img_delt: `${api_uri}/v1/manager/feed-image-remove/:filename`,
     feed_add: `${api_uri}/v1/manager/feed-add`,
     feed_modify: `${api_uri}/v1/manager/feed-modify`,
 
@@ -67,6 +66,7 @@ exports.enum_api_uri = {
     rank_done: `${api_uri}/v1/main/ranking-confirm`,
     rank_token: `${api_uri}/v1/main/ranking-token`,
     rank_profile_img: `${api_uri}/v1/main/ranking-profile/image-add`,
+    rank_profile_img_delt: `${api_uri}/v1/main/ranking-profile/image-remove/:filename`,
     rank_profile: `${api_uri}/v1/main/ranking-profile/modify`,
 
 

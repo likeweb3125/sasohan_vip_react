@@ -5,6 +5,7 @@ import axios from "axios";
 import * as CF from "../../config/function";
 import { enum_api_uri } from "../../config/enum";
 import { feedAddPop, confirmPop } from "../../store/popupSlice";
+import { feedRefresh } from "../../store/commonSlice";
 import TextareaBox from "../component/TextareaBox";
 import ConfirmPop from "./ConfirmPop";
 
@@ -16,7 +17,6 @@ const FeedAddPop = () => {
     const api_uri = enum_api_uri.api_uri;
     const feed_content = enum_api_uri.feed_content;
     const feed_img = enum_api_uri.feed_img;
-    const feed_img_delt = enum_api_uri.feed_img_delt;
     const feed_add = enum_api_uri.feed_add;
     const feed_modify = enum_api_uri.feed_modify;
     const [confirm, setConfirm] = useState(false);
@@ -128,31 +128,9 @@ const FeedAddPop = () => {
 
     //피드 이미지 삭제
     const handleRemove = (idx, url) => {
-        const filename = url.substring(url.lastIndexOf('/') + 1);
-
-        axios.delete(feed_img_delt.replace(':filename',filename),{
-            headers: {
-                Authorization: `Bearer ${user.userToken}`,
-            },
-        })
-        .then((res)=>{
-            if(res.status === 200){
-                let newList = [...imgList];
-                newList.splice(idx,1);
-                setImgList(newList);
-            }
-        })
-        .catch((error) => {
-            const err_msg = CF.errorMsgHandler(error);
-            dispatch(confirmPop({
-                confirmPop:true,
-                confirmPopTit:'알림',
-                confirmPopTxt: err_msg,
-                confirmPopBtn:1,
-            }));
-            setConfirm(true);
-        });
-
+        let newList = [...imgList];
+        newList.splice(idx,1);
+        setImgList(newList);
     };
 
 
@@ -283,6 +261,13 @@ const FeedAddPop = () => {
     };
 
 
+    //피드 등록, 수정완료시
+    const feedOkHandler = () => {
+        dispatch(feedRefresh(true));
+        closePopHandler();
+    };
+
+
 
     return(<>
         <div className="flex_center pop_wrap feed_add_pop">
@@ -333,7 +318,7 @@ const FeedAddPop = () => {
         </div>
 
         {/* 피드등록 완료 confirm팝업 */}
-        {feedAddOkconfirm && <ConfirmPop onClickHandler={closePopHandler}/>}
+        {feedAddOkconfirm && <ConfirmPop closePop="custom" onCloseHandler={feedOkHandler}/>}
 
         {/* confirm팝업 */}
         {confirm && <ConfirmPop />}

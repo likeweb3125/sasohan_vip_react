@@ -6,7 +6,7 @@ import axios from "axios";
 import { enum_api_uri } from "../../config/enum";
 import { heightList, visualList, mbtiList, smokList, drinkList } from "../../config/constants";
 import * as CF from "../../config/function";
-import { confirmPop, loadingPop } from "../../store/popupSlice";
+import { confirmPop, loadingPop, profileEditPop } from "../../store/popupSlice";
 import ConfirmPop from "../../components/popup/ConfirmPop";
 import MyProfileForm from "../../components/component/MyProfileForm";
 import MyProfileForm2 from "../../components/component/MyProfileForm2";
@@ -37,9 +37,7 @@ const Mypage = () => {
     const [profile, setProfile] = useState({});
     const [profile2, setProfile2] = useState({});
     const [userClassNum, setUserClassNum] = useState(null);
-
     const [values, setValues] = useState({});
-    const [focusInput, setFocusInput] = useState({});
     const [error, setError] = useState({});
     const [addressList, setAddressList] = useState([]);
     const [addressList2, setAddressList2] = useState([]);
@@ -1047,6 +1045,18 @@ const Mypage = () => {
     };
 
 
+    
+
+    //피드 프로필 프로필수정 버튼 클릭시
+    const feedProfileEditHandler = () => {
+        const data = {
+            m_n_name: user.userInfo.m_n_name,
+            photo: user.userInfo.m_f_photo
+        };
+        dispatch(profileEditPop({profileEditPop:true,profileEditPopData:data}));
+    };
+
+
 
     return(<>
         <div className="gray_wrap">
@@ -1065,7 +1075,7 @@ const Mypage = () => {
                                 <p className="txt2">{myInfo.m_id}</p>
                                 <ul className='gray_name_box flex_wrap'>
                                     <li>{myInfo.m_name}</li>
-                                    <li>부산 영도 / 1996</li>
+                                    <li>{user.userInfo.m_address} / {user.userInfo.birth}</li>
                                 </ul>
                             </div>
                         </div>
@@ -1122,9 +1132,9 @@ const Mypage = () => {
                                                             <p>{CF.MakeIntComma(feedProfile.level)}</p>
                                                         </li>
                                                     </ul>
-                                                    <button type="button" className="btn_edit tm5">프로필 수정</button>
+                                                    <button type="button" className="btn_edit tm5" onClick={feedProfileEditHandler}>프로필 수정</button>
                                                 </div>
-                                                <button type="button" className="btn_edit mo_none">프로필 수정</button>
+                                                <button type="button" className="btn_edit mo_none" onClick={feedProfileEditHandler}>프로필 수정</button>
                                             </div>
                                             <div className="box class_box flex_center">
                                                 {feedProfile.isClass && <img src={require(`../../images/class_img${feedProfile.class_number}.png`)} alt="클래스이미지" />}

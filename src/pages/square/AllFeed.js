@@ -83,6 +83,7 @@ const AllFeed = () => {
     },[sortTabOn, likeCheck]);
 
 
+    //피드 삭제, 수정시 피드리스트 가져오기
     useEffect(()=>{
         if(common.feedRefresh){
             dispatch(feedRefresh(false));

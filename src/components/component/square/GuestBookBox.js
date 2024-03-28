@@ -10,7 +10,7 @@ const GuestBookBox = ({data, editBoxOn, onEditBoxClickHandler, onCommentEditHand
         </div>
         <div className="txt_box">
             <p className="name bold bp8">{data.m_n_name}</p>
-            <div className="flex_bottom">
+            <div className="flex_bottom flex_wrap">
                 <div className="txt">{data.content}</div>
                 <div className="flex lp10">
                     <p className="date rm8">{data.w_date}</p>

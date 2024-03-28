@@ -18,25 +18,24 @@ const EditBox = ({
 
 
     useEffect(()=>{
-        setEditBox(true);
-        // if(user.userLogin){
-        //     //일반회원일때
-        //     if(user.userInfo.user_level == 'U'){
-        //         if(user.userInfo.m_id === editBoxId){
-        //             setEditBox(true);
-        //         }else{
-        //             setEditBox(false);
-        //         }
-        //     }
-        //     //매니저일때
-        //     if(user.userInfo.user_level == 'M'){
-        //         setEditBox(true);
-        //     }
-        // }
-        // //미로그인시 미노출
-        // else{
-        //     setEditBox(false);
-        // }
+        if(user.userLogin){
+            //일반회원일때
+            if(user.userInfo.user_level == 'U'){
+                if(user.userInfo.m_id === editBoxId){
+                    setEditBox(true);
+                }else{
+                    setEditBox(false);
+                }
+            }
+            //매니저일때
+            if(user.userInfo.user_level == 'M'){
+                setEditBox(true);
+            }
+        }
+        //미로그인시 미노출
+        else{
+            setEditBox(false);
+        }
     },[user.userLogin, user.userInfo]);
 
 

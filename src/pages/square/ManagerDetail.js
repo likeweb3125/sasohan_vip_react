@@ -5,6 +5,7 @@ import axios from "axios";
 import { enum_api_uri } from "../../config/enum";
 import * as CF from "../../config/function";
 import { confirmPop, feedPop, feedAddPop } from "../../store/popupSlice";
+import { feedRefresh } from "../../store/commonSlice";
 import ListTopTitleBox from "../../components/component/square/ListTopTitleBox";
 import GuestBookBox from "../../components/component/square/GuestBookBox";
 import WriteTextareaBox from "../../components/component/square/WriteTextareaBox";
@@ -29,6 +30,7 @@ const ManagerDetail = () => {
 
     const popup = useSelector((state)=>state.popup);
     const user = useSelector((state)=>state.user);
+    const common = useSelector((state)=>state.common);
     const msgListBoxRef = useRef(null);
     const [confirm, setConfirm] = useState(false);
     const [loginConfirm, setLoginConfirm] = useState(false);
@@ -171,6 +173,15 @@ const ManagerDetail = () => {
         getCommentList();   //방명록 리스트 가져오기
         getFeedList();      //피드 리스트 가져오기
     },[]);
+
+
+    //피드 삭제, 수정시 피드리스트 가져오기
+    useEffect(()=>{
+        if(common.feedRefresh){
+            dispatch(feedRefresh(false));
+            getFeedList();
+        }
+    },[common.feedRefresh]);
 
 
     useEffect(()=>{
@@ -384,22 +395,25 @@ const ManagerDetail = () => {
                             <div className="msg_box">
                                 <div className="msg_list_box">
                                     <div className="scroll_wrap" ref={msgListBoxRef}>
-                                        <ul className="msg_list">
-                                            {commentList.map((cont,i)=>{
-                                                return(
-                                                    <li className="flex_between flex_top" key={i}>
-                                                        <GuestBookBox 
-                                                            data={cont}
-                                                            editBoxOn={editBoxOn}
-                                                            onEditBoxClickHandler={onEditBoxClickHandler}
-                                                            onCommentEditHandler={onCommentEditHandler}
-                                                            onCommentDeltHandler={onCommentDeltHandler}
-                                                            btnGray={true}
-                                                        />
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
+                                        {commentList.length > 0 ?
+                                            <ul className="msg_list">
+                                                {commentList.map((cont,i)=>{
+                                                    return(
+                                                        <li className="flex_between flex_top" key={i}>
+                                                            <GuestBookBox 
+                                                                data={cont}
+                                                                editBoxOn={editBoxOn}
+                                                                onEditBoxClickHandler={onEditBoxClickHandler}
+                                                                onCommentEditHandler={onCommentEditHandler}
+                                                                onCommentDeltHandler={onCommentDeltHandler}
+                                                                btnGray={true}
+                                                            />
+                                                        </li>
+                                                    );
+                                                })}
+                                            </ul>
+                                            :<div className="none_data">방명록이 없습니다.</div>
+                                        }
                                     </div>
                                 </div>
                                 <WriteTextareaBox 

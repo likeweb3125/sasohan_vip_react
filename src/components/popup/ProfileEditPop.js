@@ -12,6 +12,7 @@ import ConfirmPop from "./ConfirmPop";
 const ProfileEditPop = () => {
     const dispatch = useDispatch();
     const popup = useSelector((state)=>state.popup);
+    const user = useSelector((state)=>state.user);
     const rank_profile_img = enum_api_uri.rank_profile_img;
     const rank_profile = enum_api_uri.rank_profile;
     const [confirm, setConfirm] = useState(false);
@@ -114,13 +115,15 @@ const ProfileEditPop = () => {
     //프로필수정하기
     const editHandler = () => {
         const body = {
-            phone: popup.profileEditPopData.phone,
-            m_code: popup.profileEditPopData.m_code,
             m_n_name: name,
             photo: [profileImgName],
         };
 
-        axios.put(`${rank_profile}`, body)
+        axios.put(`${rank_profile}`, body,{
+            headers: {
+                Authorization: `Bearer ${user.userToken}`,
+            },
+        })
         .then((res) => {
             if (res.status === 200) {
                 const data = {
@@ -187,7 +190,7 @@ const ProfileEditPop = () => {
                                 </div>
                             </li>
                             <li className="flex_top">
-                                <p>프로필 사진</p>
+                                <p>피드 프로필<span>사소한에서 활동하면서 <br/>보여지는 프로필 이미지입니다.</span></p>
                                 <div>
                                     <div className={`profile_up_box${profileImg ? " on" : ""}`}>
                                         <div className="img">
