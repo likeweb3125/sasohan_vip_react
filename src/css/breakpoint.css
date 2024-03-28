@@ -291,10 +291,7 @@
     .ranking_wrap .tit_box{display: block;}
     .ranking_wrap .tit_box .txt{padding-bottom: 36px;}
     .ranking_wrap .tip_box .box{right: auto;left: 0;}
-    .ranking_wrap .auth_box{margin: 20px auto 32px;padding: 36px 20px;min-height: 280px;}
-    .ranking_wrap .auth_box .txt_box .txt1{font-size: 28px;}
-    .ranking_wrap .auth_box .txt_box .txt2{font-size: 18px;padding-top: 12px;}
-    .ranking_wrap .form_box{width: 380px;}
+    .ranking_wrap .auth_box{margin: 20px auto 32px;}
     .ranking_wrap .rank_box ul{display: block;position: relative;}
     .ranking_wrap .rank_box li:first-child{position: absolute;width: calc(50% - 5px);height: 100%; top: 0;left: 0;margin-bottom: 0;display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex;-webkit-box-pack: center; -ms-flex-pack: center;-webkit-justify-content: center; justify-content: center;flex-direction: column;}
     .ranking_wrap .rank_box li:first-child .txt_box{margin-top: 20px;padding-top: 20px;}
@@ -659,9 +656,9 @@
     
     /* 랭킹 */
     .ranking_wrap .tit_box .txt{padding-bottom: 28px;font-size: 18px;}
-    .ranking_wrap .auth_box{padding: 24px 20px;min-height: auto;display: block;}
+    .ranking_wrap .auth_box{padding: 40px 20px;}
     .ranking_wrap .auth_box .txt_box .txt1{font-size: 24px;}
-    .ranking_wrap .auth_box .txt_box .txt2{font-size: 16px;}
+    .ranking_wrap .auth_box .txt_box .txt2{padding: 12px 0 24px;}
     .ranking_wrap .form_box{width: 100%;padding-top: 24px;}
     .ranking_wrap .form_box li{display: block;}
     .ranking_wrap .form_box li>p{width: 100%;}

@@ -295,15 +295,13 @@
 .ranking_wrap .tit_box .txt{font-size: 22px;padding-top: 20px;line-height: 1.8;}
 .ranking_wrap .tip_box {z-index: 1;}
 .ranking_wrap .tip_box .tip_txt{padding: 0 0 0 30px;background: url(../images/ic_tip2.png) no-repeat center left;font-size: 16px;color: #373D49;font-weight: 500;}
+.ranking_wrap .tip_box .tip_txt::after{display: none;}
 .ranking_wrap .tip_box .box{top: 15px;left:auto;right: -22px;width: 625px;}
-.ranking_wrap .auth_box{margin: 40px auto;padding: 52px 80px;background: #fff url(../images/ranking_auth_box_bg.svg) no-repeat left bottom;box-shadow: 0px 0px 20px 0px #6840FD14;min-height: 324px;}
-.ranking_wrap .auth_box .txt_box .txt1{font-size: 32px;font-weight: 600;}
-.ranking_wrap .auth_box .txt_box .txt2{font-size: 20px;color: #666;padding-top: 20px;}
-.ranking_wrap .form_box{width: 532px;}
-.ranking_wrap .form_box ul{padding-bottom: 12px;}
-.ranking_wrap .form_box li{padding-bottom: 20px;}
-.ranking_wrap .form_box li>p{width: 20%;}
-.ranking_wrap .form_box li>div{width: 80%;}
+.ranking_wrap .auth_box{margin: 40px auto;padding: 40px;background: #fff url(../images/ranking_auth_box_bg.svg) no-repeat left bottom;box-shadow: 0px 0px 20px 0px #6840FD14;}
+.ranking_wrap .auth_box .txt_box .txt1{font-size: 28px;font-weight: 600;word-break: keep-all;}
+.ranking_wrap .auth_box .txt_box .txt1 strong{font-weight: 800;}
+.ranking_wrap .auth_box .txt_box .txt2{font-size: 18px;color: #666;padding: 16px 0 24px;word-break: keep-all;}
+.ranking_wrap .auth_box .txt_box button{max-width: 500px;margin: 0 auto;}
 .input_time_box{position: relative;}
 .input_time_box .input_box{padding-right: 50px;}
 .input_time_box .time{position: absolute;font-size: 15px;color: #FC5862;right: 0;top: 50%;transform: translateY(-50%);}

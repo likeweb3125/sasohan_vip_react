@@ -240,7 +240,7 @@ html,.body{height: auto;scroll-behavior: smooth;}
 .title_box .tit strong::before{position: absolute;content: "";width: 0;height: 16px;border-radius: 8px;left: 0;bottom: 0;background: rgba(104, 64, 253, 0.6);transition: all .4s;z-index: -1;}
 .section.on .title_box .tit strong::before{width: 105%;}
 .tip_box{position: relative;cursor: default;display: inline-block;z-index: 10;}
-.tip_box .tip_txt{font-size: 18px;color: #999;padding-right: 30px;display: inline-block;cursor: pointer;position: relative;line-height: 1;}
+.tip_box .tip_txt{font-size: 18px;color: #999;padding-right: 30px;display: inline-block;cursor: pointer;position: relative;}
 .tip_box .tip_txt::after{position: absolute;content: '';width: 24px;height: 24px;background: url(../images/ic_tip.png) no-repeat center;right: 0;top: 50%;transform: translateY(-50%);}
 .tip_box .box{position: absolute;top: 15px;left: -12px; display: none;width: 745px;}
 .tip_box:hover .box{display: block;}
