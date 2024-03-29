@@ -40,8 +40,16 @@ const AboutVIP = () => {
     const date_apply = enum_api_uri.date_apply;
     const [confirm, setConfirm] = useState(false);
     const sect1Ref = useRef(null);
+    const sect2Ref = useRef(null);
+    const sect3Ref = useRef(null);
+    const sect4Ref = useRef(null);
+    const sect5Ref = useRef(null);
     const vipSliderRef = useRef();
     const [sect1On, setSect1On] = useState(false);
+    const [sect2On, setSect2On] = useState(false);
+    const [sect3On, setSect3On] = useState(false);
+    const [sect4On, setSect4On] = useState(false);
+    const [sect5On, setSect5On] = useState(false);
     const [vipList, setVipList] = useState([1,2,3,4,5,6,7,8,9]);
 
 
@@ -51,6 +59,34 @@ const AboutVIP = () => {
             setConfirm(false);
         }
     },[popup.confirmPop]);
+
+
+    //스크롤시 section on
+    const scrollSectOn = () => {
+        const scroll = window.scrollY;
+        const sections = [
+            { ref: sect1Ref, onSet: setSect1On },
+            { ref: sect2Ref, onSet: setSect2On },
+            { ref: sect3Ref, onSet: setSect3On },
+            { ref: sect4Ref, onSet: setSect4On },
+            { ref: sect5Ref, onSet: setSect5On },
+        ];
+      
+        sections.forEach(({ ref, onSet }) => {
+            const offsetTop = ref.current.offsetTop;
+            if (scroll >= offsetTop - 500) {
+                onSet(true);
+            }
+        });
+    };
+
+    useEffect(() => {    
+        window.addEventListener("scroll", scrollSectOn);
+
+        return () => {
+            window.removeEventListener("scroll", scrollSectOn);
+        };
+    }, []);
     
 
     return(<> 
@@ -73,7 +109,7 @@ const AboutVIP = () => {
                     <strong>Scroll</strong>
                 </div>
             </div>
-            <div className={`vip_sect vip_sect1 ${sect1On ? "on" : ""}`} id="sect1" ref={sect1Ref}>
+            <div className={`vip_sect vip_sect1 ${sect1On ? "on" : ""}`} ref={sect1Ref}>
                 <div className="tx_c tit">
                     <div><img src={vip_txt_img} alt="사소한 vip" /></div>
                     <p>사소한만의 <strong>VIP회원</strong></p>
@@ -93,7 +129,7 @@ const AboutVIP = () => {
                             navigation={{nextEl: `.vip_slider_wrap .swiper-button-next`,prevEl: `.vip_slider_wrap .swiper-button-prev`}}
                             scrollbar={{draggable: true}}
                             ref={vipSliderRef}
-                            modules={[Grid, Pagination, Scrollbar]}
+                            modules={[Grid, Pagination, Scrollbar, Navigation]}
                         >
                             {vipList.map((cont,i)=>{
                                 return(
@@ -106,15 +142,15 @@ const AboutVIP = () => {
                             })}
                             
                         </Swiper>
-                    </div>
-                    <div className="btn_box flex_between tab_none">
-                        <div className="swiper-button-prev"></div>
-                        <div className="swiper-button-next"></div>
+                        <div className="btn_box flex_between">
+                            <div className="swiper-button-prev hover_btn"></div>
+                            <div className="swiper-button-next hover_btn"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className={`vip_sect vip_sect2`}>
+            <div className={`vip_sect vip_sect2 ${sect2On ? "on" : ""}`} ref={sect2Ref}>
                 <div className="cont4">
                     <div className="tx_c">
                         <div className="txt">위 프로필은 실제 사소한을 이용하고 있는 VIP 회원으로, <br/>회원님들의 동의하에 사소한의 VIP 회원 모델로 게시하고 있습니다.</div>
@@ -126,7 +162,7 @@ const AboutVIP = () => {
                 </div>
             </div>
 
-            <div className={`vip_sect vip_sect3`}>
+            <div className={`vip_sect vip_sect3 ${sect3On ? "on" : ""}`} ref={sect3Ref}>
                 <div className="cont4">
                     <div className="img_box">
                         <img src={vip_sect2_img} alt="이미지" />
@@ -148,7 +184,7 @@ const AboutVIP = () => {
                 </div>
             </div>
 
-            <div className={`vip_sect vip_sect4`}>
+            <div className={`vip_sect vip_sect4 ${sect4On ? "on" : ""}`} ref={sect4Ref}>
                 <div className="cont4">
                     <div className="vip_apply_cont">
                         <div className="txt_box flex_top">
@@ -186,7 +222,7 @@ const AboutVIP = () => {
                 </div>
             </div>
 
-            <div className={`vip_sect vip_sect5`}>
+            <div className={`vip_sect vip_sect5 ${sect5On ? "on" : ""}`} ref={sect5Ref}>
                 <div className="cont4">
                     <div className="vip_apply_cont">
                         <div className="txt_box flex_top">

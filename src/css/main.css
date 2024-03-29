@@ -248,8 +248,6 @@ html,.body{height: auto;scroll-behavior: smooth;}
 .tip_box2 .tip_txt{font-size: 16px;color: #373D49;padding: 0 0 0 30px;}
 .tip_box2 .tip_txt::after{background: url(../images/ic_tip2.png) no-repeat center;right: auto;left:0;}
 .tip_box2 .box{right: -12px;left: auto; width: 300px;}
-
-
 .btn_link{font-size: 18px;color: #6840FD;font-weight: 700;padding:0 36px 8px 0;background: url(../images/ic_link_blog.svg) no-repeat top right;position: relative;display: inline-block;}
 .btn_link.ytb{background: url(../images/ic_link_ytb.svg) no-repeat top right;}
 .btn_link::before{position: absolute;content: "";width: 0;height: 4px;background: #6840FD;transition: all .3s;left: 0;bottom: 0;}
@@ -715,10 +713,17 @@ html,.body{height: auto;scroll-behavior: smooth;}
 .feed_profile_img_pop .btn_img_close{width: 40px;height: 40px;background: url(../images/ic_close_w.svg) no-repeat center;font-size: 0;text-indent: -9999px;margin-left: 10px;position: relative;z-index: 2;}
 
 /* VIP회원 지원팝업 */
-.vip_apply_pop .pop_cont{background: none;padding: 56px 0 0 0;}
+.vip_apply_pop .pop_cont{background: none;padding: 56px 0 0 0;width: 500px;}
 .vip_apply_pop .btn_close{width: 40px;height: 40px;background: url(../images/ic_close_w.svg) no-repeat center;top: 0;right: 0;}
 .vip_apply_pop .apply_cont{background: #fff;padding: 40px;border-radius: 32px;}
 .vip_apply_pop .apply_cont .tit{font-size: 26px;font-weight: 700;border-bottom: 2px solid #1B171E;padding-bottom: 20px;}
-
-
-
+.vip_apply_pop .scroll_wrap{max-height: 75vh;}
+.vip_apply_pop .form_ul{padding: 20px 0;}
+.vip_apply_pop .form_ul>li{width: calc(50% - 8px);}
+.vip_apply_pop .form_ul>li:last-child{width: 100%;}
+.vip_apply_pop .terms_box .terms_ul{background: #FAF8FF;margin-top: 8px;}
+.vip_apply_pop .terms_box .terms_ul>li{padding: 8px 16px;position: relative;}
+.vip_apply_pop .terms_box .custom_check label>.txt{font-size: 16px;font-weight: 500;}
+.vip_apply_pop .terms_box .terms_ul>li button{position: absolute;font-size: 0;text-indent: -9999px;width: 40px;height: 100%;right: 0;top: 0;background: url(../images/arrow_link.svg) no-repeat center left;}
+.vip_apply_pop .btn_box{padding-top: 20px;text-align: center;}
+.vip_apply_pop .btn_box p{font-size: 14px;color: #666;padding-bottom: 12px;}

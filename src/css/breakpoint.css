@@ -84,6 +84,9 @@
 @media screen and (max-width: 1550px){
     /* 메인 */
     .trust_cont_inner .slider_box > .btn_box{display: none;}
+
+    /* VIP 소개팅 */
+    .vip_slider_wrap .btn_box{display: none;}
 }
 
 

@@ -49,9 +49,6 @@ const Popup = () => {
             {/* 랭킹 프로필수정 팝업 */}
             {popup.profileEditPop && <ProfileEditPop />}
 
-            {/* 회원가입 - 약관 팝업 */}
-            {popup.termsPop && <TermsPop />}
-
             {/* 스퀘어 - 피드상세 팝업 */}
             {popup.feedPop && <FeedPop />}
 
@@ -89,6 +86,9 @@ const Popup = () => {
             {popup.appChangePasswordPop && <AppChangePasswordPop />}
 
 
+
+            {/* 회원가입,VIP회원 지원팝업 - 약관 팝업 */}
+            {popup.termsPop && <TermsPop />}
 
             {/* 로딩 팝업 */}
             {popup.loadingPop && <LoadingPop />}
