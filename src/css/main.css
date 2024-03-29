@@ -42,6 +42,7 @@ html,.body{height: auto;scroll-behavior: smooth;}
 .bp0{padding-bottom: 0 !important;}
 .error_txt{font-size: 15px;color: #FC5862;padding-top: 8px;}
 .over_hidden{overflow: hidden;}
+.pointer{cursor: pointer;}
 
 
 /* profile_img_box */
@@ -698,5 +699,26 @@ html,.body{height: auto;scroll-behavior: smooth;}
 .feed_add_pop .scroll_wrap{max-height: 60vh;}
 .feed_add_pop .custom_textarea{height: 140px;}
 .feed_add_pop .btn_box button{width: calc(50% - 6px);}
+
+/* 랭킹 - 피드프로필 팝업 */
+.feed_profile_pop .pop_cont{width: 640px;border-radius: 32px;padding: 20px;}
+.feed_profile_pop .pop_tit{padding-bottom: 20px;}
+.feed_profile_pop .pop_tit .tit{font-size: 26px !important;color: #222;}
+.feed_profile_pop .btn_close{top: 20px;right: 20px;width: 40px !important;height: 40px !important;}
+.feed_profile_pop .scroll_wrap{border: 1px solid #6840FD;border-radius: 20px;max-height: 75vh;}
+.feed_profile_pop .ranking_ul_box {margin-top: 0;border-top: none;}
+.feed_profile_pop .ranking_ul_box .list_ul>li .box{padding: 10px 0;border-bottom: none;}
+.feed_profile_img_pop .img_box{max-width: 100%; position: relative;z-index: 1;}
+.feed_profile_img_pop .img_box .dim{background: none;z-index: 1;}
+.feed_profile_img_pop .img_box .img{max-width: calc(100% - 50px);position: relative;z-index: 2;}
+.feed_profile_img_pop .img_box .img img{max-height: 100vh;}
+.feed_profile_img_pop .btn_img_close{width: 40px;height: 40px;background: url(../images/ic_close_w.svg) no-repeat center;font-size: 0;text-indent: -9999px;margin-left: 10px;position: relative;z-index: 2;}
+
+/* VIP회원 지원팝업 */
+.vip_apply_pop .pop_cont{background: none;padding: 56px 0 0 0;}
+.vip_apply_pop .btn_close{width: 40px;height: 40px;background: url(../images/ic_close_w.svg) no-repeat center;top: 0;right: 0;}
+.vip_apply_pop .apply_cont{background: #fff;padding: 40px;border-radius: 32px;}
+.vip_apply_pop .apply_cont .tit{font-size: 26px;font-weight: 700;border-bottom: 2px solid #1B171E;padding-bottom: 20px;}
+
 
 

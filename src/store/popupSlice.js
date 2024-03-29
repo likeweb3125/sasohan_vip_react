@@ -49,6 +49,13 @@ const popup = createSlice({
         feedPopNo: null,
         feedAddPop: false,
         feedAddPopNo: null, //피드수정일때 피드 idx값
+
+        //피드프로필 팝업
+        feedProfilePop: false,
+        feedProfilePopData: {},
+
+        // VIP회원 지원 팝업
+        vipApplyPop: false,
         
         
         // 앱 팝업------------------------------------
@@ -146,6 +153,13 @@ const popup = createSlice({
             state.feedAddPop = action.payload.feedAddPop;
             state.feedAddPopNo = action.payload.feedAddPopNo;
         },
+        feedProfilePop: (state, action) => {
+            state.feedProfilePop = action.payload.feedProfilePop;
+            state.feedProfilePopData = action.payload.feedProfilePopData;
+        },
+        vipApplyPop: (state, action) => {
+            state.vipApplyPop = action.payload;
+        },
 
         // 앱 팝업------------------------------------
         appTermsPop: (state, action) => {
@@ -205,6 +219,8 @@ export const {
 
     feedPop,
     feedAddPop,
+    feedProfilePop,
+    vipApplyPop,
 
     appTermsPop,
     appTermsCheckList,

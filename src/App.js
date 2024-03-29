@@ -18,7 +18,7 @@ import EditMyInfo from './pages/member/EditMyInfo';
 import AllFeed from './pages/square/AllFeed';
 import ManagerList from './pages/square/ManagerList';
 import ManagerDetail from './pages/square/ManagerDetail';
-
+import AboutVIP from './pages/AboutVIP';
 import Ranking from './pages/Ranking';
 import PasswordChange from './pages/PasswordChange';
 import Terms from './pages/Terms';
@@ -105,6 +105,9 @@ function App() {
                     <Route path="manager/:m_id" element={<ManagerDetail />} />
                 </Route>
 
+
+                {/* VIP 소개팅 */}
+                <Route path="/about-vip" element={<Layout><AboutVIP /></Layout>} />
 
                 {/* 랭킹 */}
                 <Route path="/ranking" element={<Layout><Ranking /></Layout>} />

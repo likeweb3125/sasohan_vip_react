@@ -108,7 +108,7 @@ const Header = () => {
                 <nav className="gnb_wrap">
                     <ul className="gnb">
                         <li className={menuOn === 1 ? "on" : ""}><Link to="/">About 사소한</Link></li>
-                        <li className=''><Link to="/">VIP 소개팅</Link></li>
+                        <li className=''><Link to="/about-vip">VIP 소개팅</Link></li>
                         <li className='is_submenu'>
                             <Link to="/square/all-feed">사소한 스퀘어</Link>
                             <div className='submenu_box'>
@@ -165,8 +165,7 @@ const Header = () => {
                         {login ?
                             <div className='profile_box flex_between'>
                                 <div>
-                                    <div className='flex'
-                                        style={{'cursor':'pointer'}}
+                                    <div className='flex pointer'
                                         onClick={()=>{
                                             //일반회원일때 마이페이지로 이동
                                             if(user.userInfo.user_level == 'U'){
@@ -214,7 +213,7 @@ const Header = () => {
                                 <Link to="/">About 사소한</Link>
                             </li>
                             <li className=''>
-                                <Link to="/">VIP 소개팅</Link>
+                                <Link to="/about-vip">VIP 소개팅</Link>
                             </li>
                             <li className=''>
                                 <Link to="/">사소한 스퀘어</Link>

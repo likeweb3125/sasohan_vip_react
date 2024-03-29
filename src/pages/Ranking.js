@@ -6,7 +6,7 @@ import moment from "moment";
 import { enum_api_uri } from "../config/enum";
 import * as CF from "../config/function";
 import util from "../config/util";
-import { confirmPop, loadingPop, profileEditPop, profileEditPopDone } from "../store/popupSlice";
+import { confirmPop, loadingPop, profileEditPop, profileEditPopDone, feedProfilePop } from "../store/popupSlice";
 import SearchBox from "../components/component/SearchBox";
 import ConfirmPop from "../components/popup/ConfirmPop";
 import ranking_tip_box from "../images/ranking_tip_box.svg";
@@ -387,12 +387,20 @@ const Ranking = () => {
                                         </div>
                                         <div className={`box name_box${myData ? " my_data" : ""}`}>
                                             <div className="inner_box flex_start flex_wrap">
-                                                <div className="flex_top">
-                                                    <div className="img">
-                                                        {myPhoto ?
-                                                            <img src={cont.m_f_photo} alt="프로필이미지" />
-                                                            :<img src={require(`../images/random_profile${cont.profile_num}.svg`)} alt="랜덤프로필이미지" />
-                                                        }
+                                                <div className="flex_top pointer"
+                                                    onClick={()=>{
+                                                        dispatch(feedProfilePop({feedProfilePop:true, feedProfilePopData:cont}));
+                                                    }}
+                                                >
+                                                    <div className={`profile_img_box class_${cont.class_number}`}>   
+                                                        <div className='img'>
+                                                            <div>
+                                                                {myPhoto ?
+                                                                    <img src={cont.m_f_photo} alt="프로필이미지" />
+                                                                    :<img src={require(`../images/random_profile${cont.profile_num}.svg`)} alt="랜덤프로필이미지" />
+                                                                }
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <p className={`name${cont.M_N_Name_modify === 1 ? ' color_black' : ''}`}>{cont.m_n_name}</p>
                                                 </div>

@@ -52,11 +52,15 @@ exports.enum_api_uri = {
     guest_book: `${api_uri}/v1/manager-feed/guest-book-regist`,
     guest_book_delt: `${api_uri}/v1/manager-feed/guest-book-delete/:idx`,
     manager_feed_list: `${api_uri}/v1/main/feed-list/:m_id`,
-
     feed_img: `${api_uri}/v1/manager/manager-image-add`,
     feed_add: `${api_uri}/v1/manager/feed-add`,
     feed_modify: `${api_uri}/v1/manager/feed-modify`,
-
+    
+    //VIP 소개팅
+    vip_apply: `${api_uri}/v1/main/vip-request`,
+    vip_apply_img: `${api_uri}/v1/main/vip-request/image-add`,
+    vip_apply_img_delt: `${api_uri}/v1/main/vip-request/image-remove/:filename`,
+    
 
 
 

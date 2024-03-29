@@ -244,6 +244,12 @@
     .feed_pop .feed_con .cont_box{width: 100%;display: block;height: auto;padding-bottom: 0;position: static;}
     .feed_pop .feed_con .cont_box .content_box{height: auto;min-height: 100px;padding: 20px 30px;}
 
+    /* 랭킹 - 피드프로필 팝업 */
+    .feed_profile_img_pop .img_box{display: block;padding-top: 60px;}
+    .feed_profile_img_pop .img_box .img{max-width: 100%;}
+    .feed_profile_img_pop .img_box .img img{max-height: calc(100vh - 80px);}
+    .feed_profile_img_pop .btn_img_close{position: absolute;top: 0;right: 0;margin-left: 0;}
+
 
     /* 간편가입신청서 */
     .apply_wrap .top_banner{background: url(../images/apply_bg_tab.jpg) no-repeat center;background-size: cover; padding-bottom: 280px;}
@@ -317,7 +323,7 @@
     .ranking_ul_box .list_ul>li .class_box{width: 18%;}
     .ranking_ul_box .list_ul>li .name_box.my_data .inner_box{padding-right: 0;padding-bottom: 25px;}
     .ranking_ul_box .list_ul>li .name_box .inner_box>div{width: 100%;}
-    .ranking_ul_box .list_ul>li .name_box .img{width: 32px;height: 32px;}
+    .ranking_ul_box .list_ul>li .name_box .profile_img_box{width: 32px;height: 32px;}
     .ranking_ul_box .list_ul>li .name_box .name{font-size: 16px;padding-top: 6px;width: calc(100% - 32px);}
     .ranking_ul_box .list_ul>li.top .name_box .name{font-size: 20px;padding-top: 3px;}
     .ranking_ul_box .list_ul>li .name_box>.btn_edit{right: auto;left: 20px;top: auto;transform: translateY(0);bottom: 12px;}
@@ -569,6 +575,9 @@
     .feed_pop .feed_con .cont_box .content_box{padding: 12px 20px;}
     .comment_box .comment_list>li>.comment{padding: 16px 20px;}
     .comment_box .comment_list .reply_box{padding: 16px 20px 16px 68px;}
+    .feed_profile_pop .pop_cont{width: 100%;height: 100%;padding: 50px 20px;border-radius: 0;}
+    .feed_profile_pop .pop_tit{border-bottom: 2px solid #222;margin-bottom: 20px;width: 100%;}
+    .feed_profile_pop .btn_close{top: 8px;}
 
 
     /* 간편가입신청서 */

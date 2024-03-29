@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination, Scrollbar, Navigation, EffectFade, Controller } from "swiper";
+import { Pagination, Scrollbar, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
@@ -32,7 +32,6 @@ import dona_img2 from "../images/dona_img2.jpg";
 import dona_img3 from "../images/dona_img3.jpg";
 import none_img from "../images/none_img.jpg";
 
-SwiperCore.use([Pagination,Scrollbar,Navigation,EffectFade,Controller]);
 
 const Main = () => {
     const dispatch = useDispatch();
@@ -473,6 +472,7 @@ const Main = () => {
                             }
                         }}
                         ref={charmingSliderRef}
+                        modules={[Navigation,Pagination]}
                     >
                         {managerList.map((data,i)=>{
                             return(
@@ -509,6 +509,7 @@ const Main = () => {
                                                         768:{slidesPerView:2,spaceBetween:8},//width >= 768
                                                     }
                                                 }
+                                                modules={[Scrollbar, Navigation]}
                                             >
                                                 {data.matching_manager.map((data,i)=>{
                                                     return(
@@ -672,6 +673,7 @@ const Main = () => {
                             }
                         }
                         ref={storySliderRef}
+                        modules={[Navigation,Scrollbar]}
                     >
                         {storyList.map((cont,i)=>{
                             return(
@@ -722,6 +724,7 @@ const Main = () => {
                                 //width >= 767
                                 {767:{slidesPerView:1.3,spaceBetween:34}}
                             }
+                            modules={[Pagination]}
                         >
                             {blogList.map((data,i)=>{
                                 return(
@@ -820,6 +823,7 @@ const Main = () => {
                                 767:{slidesPerView:4,spaceBetween:7},  //width >= 767
                             }
                         }
+                        modules={[Navigation,Scrollbar]}
                     >
                         {ytbList.map((data,i)=>{
                             return(
@@ -892,6 +896,7 @@ const Main = () => {
                                         //768:{slidesPerView:1.7,spaceBetween:0,centeredSlides:true},//width >= 768
                                     }
                                 }
+                                modules={[Navigation]}
                             >
                                 {trustList.map((cont,i)=>{
                                     return(
@@ -985,6 +990,7 @@ const Main = () => {
                                         //768:{slidesPerView:1.7,spaceBetween:0,centeredSlides:true},//width >= 768
                                     }
                                 }
+                                modules={[Navigation]}
                             >
                                 {trustList2.map((cont,i)=>{
                                     return(
@@ -1069,6 +1075,7 @@ const Main = () => {
                                 //768:{slidesPerView:1.7,spaceBetween:0,centeredSlides:true},//width >= 768
                             }
                         }
+                        modules={[Navigation]}
                     >
                         <SwiperSlide className="slide_1">
                             <div className="img_box" onClick={()=>{dispatch(imgPop({imgPop:true,imgPopSrc:dona_img1}))}}>
@@ -1163,6 +1170,7 @@ const Main = () => {
                             //width >= 1420
                             {1420:{slidesPerView:3,slidesPerGroup:3}}
                         }
+                        modules={[Navigation,Scrollbar]}
                     >
                         {reviewList.map((data,i)=>{
                             return(
