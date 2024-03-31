@@ -16,7 +16,6 @@ exports.enum_api_uri = {
     story_list: `${api_uri}/v1/main/story-list`,
     story_view: `${api_uri}/v1/main/story-view/:list_no`,
     license_list: `${api_uri}/v1/main/app-license/:idx`,
-    user_delt: `${api_uri}/v1/etc/delete-request`,
 
     //회원---
     login: `${api_uri}/v1/app/user/user-login`,
@@ -34,6 +33,9 @@ exports.enum_api_uri = {
     basic_profile_modify: `${api_uri}/v1/main-mypage/profile-modify`,
     profile_modify: `${api_uri}/v1/main-mypage/type-modify`,
     profile2_modify: `${api_uri}/v1/main-mypage/ideal-modify`,
+
+    user_delt_code: `${api_uri}/v1/main-mypage/leave-sign`,
+    user_delt: `${api_uri}/v1/main-mypage/leave`,
 
     //스퀘어---
     feed_list: `${api_uri}/v1/main/feed-list`,

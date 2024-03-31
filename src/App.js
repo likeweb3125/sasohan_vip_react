@@ -22,7 +22,7 @@ import AboutVIP from './pages/AboutVIP';
 import Ranking from './pages/Ranking';
 import PasswordChange from './pages/PasswordChange';
 import Terms from './pages/Terms';
-import UserDelt from './pages/UserDelt';
+import UserDelt from './pages/member/UserDelt';
 import Apply from './pages/Apply';
 
 import AppSignup from './pages/app/Signup';
@@ -93,6 +93,9 @@ function App() {
                 {/* 마이페이지 - 기본정보수정 */}
                 <Route path="/member/mypage/myinfo" element={<Layout><EditMyInfo /></Layout>} />
 
+                {/* 회원정보 삭제 */}
+                <Route path="/member/delete" element={<Layout><UserDelt /></Layout>} />
+
 
                 {/* 스퀘어 -------------------*/}
                 <Route path="/square" element={<Layout><Outlet/></Layout>}>
@@ -117,9 +120,6 @@ function App() {
 
                 {/* 서비스약관 */}
                 <Route path="/terms/:terms_tit" element={<Layout><Terms /></Layout>} />
-
-                {/* 회원정보 삭제 */}
-                <Route path="/user/delete" element={<UserDelt />} />
 
                 {/* 간편가입신청 */}
                 <Route path="/apply" element={<Apply />} />
