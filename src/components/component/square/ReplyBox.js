@@ -5,8 +5,8 @@ import WriteTextareaBox from "./WriteTextareaBox";
 const ReplyBox = ({
     data,
     editBoxIdx, 
-    editBoxId,
     editBoxOn, 
+    editBox,
     onEditBoxClickHandler, 
     onEditHandler, 
     onDeltHandler, 
@@ -32,8 +32,8 @@ const ReplyBox = ({
                     </div>
                     <EditBox 
                         editBoxIdx={editBoxIdx}
-                        editBoxId={editBoxId}
                         editBoxOn={editBoxOn}
+                        editBox={editBox}
                         onEditBoxClickHandler={onEditBoxClickHandler}
                         onEditHandler={onEditHandler}
                         onDeltHandler={onDeltHandler}

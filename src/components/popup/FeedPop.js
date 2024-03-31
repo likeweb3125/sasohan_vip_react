@@ -38,6 +38,8 @@ const FeedPop = () => {
     const [replyValue, setReplyValue] = useState('');
     const [replyBoxOn, setReplyBoxOn] = useState(null);
     const [commentEditOn, setCommentEditOn] = useState(null);
+    const [feedEditBtn, setFeedEditBtn] = useState(false);
+    const [commentEditBtn, setCommentEditBtn] = useState(false);
 
 
     // Confirm팝업 닫힐때
@@ -412,6 +414,29 @@ const FeedPop = () => {
 
 
 
+    useEffect(()=>{
+        if(user.userLogin){
+            //일반회원일때
+            if(user.userInfo.user_level == 'U' && user.userInfo.m_id === feedData.manager_id){
+                setCommentEditBtn(true);
+            }
+            //매니저일때
+            else if(user.userInfo.user_level == 'M' && user.userInfo.m_id === feedData.manager_id){
+                setFeedEditBtn(true);
+            }else{
+                setFeedEditBtn(false);
+                setCommentEditBtn(false);
+            }
+        }
+        //미로그인시 미노출
+        else{
+            setFeedEditBtn(false);
+            setCommentEditBtn(false);
+        }
+    },[user.userLogin, user.userInfo, feedData]);
+
+
+
     return(<>
         <div className="flex_center pop_wrap feed_pop">
             <div className="dim" onClick={closePopHandler}></div>
@@ -428,6 +453,7 @@ const FeedPop = () => {
                                 <EditBox 
                                     editBoxIdx={0}
                                     editBoxOn={editBoxOn}
+                                    editBox={feedEditBtn}
                                     onEditBoxClickHandler={onEditBoxClickHandler}
                                     onEditHandler={onFeedEditHandler}
                                     onDeltHandler={onFeedDeltHandler}
@@ -472,6 +498,7 @@ const FeedPop = () => {
                                 <EditBox 
                                     editBoxIdx={0}
                                     editBoxOn={editBoxOn}
+                                    editBox={feedEditBtn}
                                     onEditBoxClickHandler={onEditBoxClickHandler}
                                     onEditHandler={onFeedEditHandler}
                                     onDeltHandler={onFeedDeltHandler}
@@ -501,16 +528,31 @@ const FeedPop = () => {
                                 {commentList.length > 0 ?
                                     <ul className="comment_list">
                                         {commentList.map((cont,i)=>{
+
+                                            //댓글 수정,삭제버튼 노출
+                                            let editBoxShow = false;
+                                            if(user.userLogin){
+                                                //일반회원일때
+                                                if(user.userInfo.user_level == 'U' && user.userInfo.m_id === cont.m_id){
+                                                    editBoxShow = true;
+                                                }
+                                                //매니저일때
+                                                if(user.userInfo.user_level == 'M' && user.userInfo.m_id === feedData.manager_id){
+                                                    editBoxShow = true;
+                                                }
+                                            }
+
                                             return(
                                                 <li key={i}>
                                                     <Comment 
                                                         data={cont}
                                                         editBoxOn={editBoxOn}
+                                                        editBox={editBoxShow}
                                                         onEditBoxClickHandler={onEditBoxClickHandler}
                                                         onEditHandler={onCommentEditHandler}
                                                         onDeltHandler={onCommentDeltHandler}
                                                         btnGray={true}
-                                                        editBtn={true}
+                                                        // editBtn={true} -> 댓글수정기능 없음
                                                         //답글
                                                         replyValue={replyValue}
                                                         onReplyChangeHandler={(e)=>{

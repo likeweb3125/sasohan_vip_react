@@ -27,7 +27,6 @@ const ManagerDetail = () => {
     const guest_book_delt = enum_api_uri.guest_book_delt;
     const manager_favorite = enum_api_uri.manager_favorite;
     const feed_favorite = enum_api_uri.feed_favorite;
-
     const popup = useSelector((state)=>state.popup);
     const user = useSelector((state)=>state.user);
     const common = useSelector((state)=>state.common);
@@ -36,15 +35,14 @@ const ManagerDetail = () => {
     const [loginConfirm, setLoginConfirm] = useState(false);
     const [commentDeltConfirm, setCommentDeltConfirm] = useState(false);
     const [commentDeltOkConfirm, setCommentDeltOkConfirm] = useState(false);
-
     const [profile, setProfile] = useState({});
     const [feedList, setFeedList] = useState([]);
     const [pageNo, setPageNo] = useState(1);
     const [moreBtn, setMoreBtn] = useState(false);
-
     const [commentList, setCommentList] = useState([]);
     const [editBoxOn, setEditOn] = useState(null);
     const [commentValue, setCommentValue] = useState('');
+    const [feedAddBtn, setFeedAddBtn] = useState(false);
 
 
     // Confirm팝업 닫힐때
@@ -220,6 +218,23 @@ const ManagerDetail = () => {
             setConfirm(true);
         })
     };
+
+
+    //피드작성 버튼 
+    useEffect(()=>{
+        if(user.userLogin){
+            //로그인한 매니저계정일때만 노출
+            if(user.userInfo.user_level == 'M' && user.userInfo.m_id === m_id){
+                setFeedAddBtn(true);
+            }else{
+                setFeedAddBtn(false);
+            }
+        }
+        //미로그인시 미노출
+        else{
+            setFeedAddBtn(false);
+        }
+    },[user.userLogin, user.userInfo]);
 
 
     //방명록  ------------------------------------
@@ -432,9 +447,11 @@ const ManagerDetail = () => {
                         <div className="box">
                             <div className="box_tit flex_between">
                                 <p>매니저 피드</p>
-                                <button type="button" className="color_gray2 underline medium"
+                                {feedAddBtn &&
+                                    <button type="button" className="color_gray2 underline medium"
                                     onClick={()=>dispatch(feedAddPop({feedAddPop:true, feedAddPopNo:null}))}
                                 >피드 작성</button>
+                                }
                             </div>
                             <ListCont 
                                 list={feedList}

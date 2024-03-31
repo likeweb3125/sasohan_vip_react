@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as CF from "../../config/function";
 import { applyPop } from '../../store/popupSlice';
+import { userInfo, userLogin, userToken, userRank } from "../../store/userSlice";
 import ConfirmPop from '../popup/ConfirmPop';
 import logo_big_b from "../../images/logo_big_b.svg";
 
@@ -98,6 +99,15 @@ const Header = () => {
     },[user.userRank, user.userRankData]);
 
 
+    //로그아웃하기
+    const logoutHandler = () => {
+        dispatch(userInfo({}));
+        dispatch(userLogin(false));
+        dispatch(userToken(''));
+        dispatch(userRank({userRank:false, userRankData:{}}));
+    };
+
+
 
     return(<>
         <header id="header" className={`flex_center ${headerOn ? "on" : ""}`}>
@@ -139,7 +149,7 @@ const Header = () => {
                                             : user.userInfo.user_level == 'M' && <Link to={'/square/manager/'+user.userInfo.m_id}>마이 프로필</Link> //매니저일때 매니저상세페이지로 이동
                                         }
                                     </li>
-                                    <li><button type='button'>로그아웃</button></li>
+                                    <li><button type='button' onClick={logoutHandler}>로그아웃</button></li>
                                 </ul>
                             </div>
                         </div>
@@ -201,7 +211,7 @@ const Header = () => {
                                         </div>
                                     }
                                 </div>
-                                <button type='button' className='btn_logout'>로그아웃</button>
+                                <button type='button' className='btn_logout' onClick={logoutHandler}>로그아웃</button>
                             </div>
                             :   <ul className='link_ul flex_between'>
                                     <li><Link to={'/member/login'}>로그인</Link></li>

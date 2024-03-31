@@ -57,6 +57,7 @@ exports.enum_api_uri = {
     feed_modify: `${api_uri}/v1/manager/feed-modify`,
     
     //VIP 소개팅
+    vip_list: `${api_uri}/v1/main/vip-list`,
     vip_apply: `${api_uri}/v1/main/vip-request`,
     vip_apply_img: `${api_uri}/v1/main/vip-request/image-add`,
     vip_apply_img_delt: `${api_uri}/v1/main/vip-request/image-remove/:filename`,

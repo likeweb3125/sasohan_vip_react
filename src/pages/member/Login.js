@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { enum_api_uri } from "../../config/enum";
 import * as CF from "../../config/function";
+import util from "../../config/util";
 import { confirmPop, loadingPop } from "../../store/popupSlice";
 import { userLogin, userToken, userInfo, userRank } from "../../store/userSlice";
 import InputBox from "../../components/component/InputBox";
@@ -317,6 +318,13 @@ const Login = () => {
             if(res.status === 200){
                 dispatch(loadingPop(false));
 
+                //아이디저장 체크시 쿠키에 저장
+                if(saveIdCheck){
+                    util.setCookie("saveId",info.m_id,1);
+                }else{
+                    util.setCookie("saveId",info.m_id,-1);
+                }
+
                 //회원랭킹정보 store 에 저장
                 const data = res.data;
                 let rank = false;
@@ -362,6 +370,13 @@ const Login = () => {
             if(res.status === 200){
                 dispatch(loadingPop(false));
 
+                //아이디저장 체크시 쿠키에 저장
+                if(saveIdCheck){
+                    util.setCookie("saveId",info.m_id,1);
+                }else{
+                    util.setCookie("saveId",info.m_id,-1);
+                }
+
                 const data = res.data;
                 const newInfo = {...info};
                 newInfo.m_f_photo = data.photo; //매니저프로필사진 넣기
@@ -386,6 +401,18 @@ const Login = () => {
             setConfirm(true);
         })
     };
+
+
+    //아이디저장값이 있을때
+    useEffect(()=>{
+        if(util.getCookie("saveId")){
+            const id = util.getCookie("saveId");
+            const newValues = {...values};
+            newValues.id = id;
+            setValues(newValues);
+            setSaveIdCheck(true);
+        }
+    },[]);
 
 
     return(<>

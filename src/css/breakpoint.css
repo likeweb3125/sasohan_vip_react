@@ -293,6 +293,21 @@
     .manager_detail_cont .msg_feed_box .square_list_cont ul li{width: calc(50% - 34px);margin: 0 68px 50px 0 !important;}
     .manager_detail_cont .msg_feed_box .square_list_cont ul li:nth-child(2n){margin-right: 0 !important;}
    
+    /* VIP 소개팅 */
+    .about_vip_wrap .main_visual:before{top: 28%;}
+    .about_vip_wrap .main_visual .txt_box{padding-top: 196px;}
+    .about_vip_wrap .main_visual .img_box{display: none;}
+    .vip_sect1{padding-top: 80px;}
+    .vip_sect3{padding: 120px 0;}
+    .vip_sect3 .img_box{position: static;width: calc(100% + 60px);margin-left: -30px;}
+    .vip_sect3 .txt_box{padding: 80px 0 0;}
+    .vip_apply_cont .txt_box{display: block;}
+    .vip_apply_cont .txt_box .tit{width: 100%;margin-bottom: 40px;}
+    .vip_apply_cont .box .img_ul{padding-bottom: 0;}
+    .vip_apply_cont .box .img_ul li{width: 50%;padding-bottom: 40px;}
+    .vip_apply_cont .btn_box button{width: 100%;}
+    .vip_sect5 .gray_box{padding: 36px 32px;}
+    .vip_sect5 .gray_box .txt_ul li{width: 100%;}
 
 
     /* 랭킹 */
@@ -582,6 +597,13 @@
     .feed_profile_pop .pop_tit{border-bottom: 2px solid #222;margin-bottom: 20px;width: 100%;}
     .feed_profile_pop .btn_close{top: 8px;}
 
+    /* VIP회원 지원팝업 */
+    .vip_apply_pop .pop_cont{padding: 50px 20px 40px;background: #fff;border-radius: 0;width: 100%;height: 100%;}
+    .vip_apply_pop .btn_close{background: url(../images/ic_close_b3.svg) no-repeat center;width: 40px;height: 40px;top: 8px;right: 20px;}
+    .vip_apply_pop .apply_cont{padding: 0;}
+    .vip_apply_pop .btn_box {text-align: left;}
+    .vip_apply_pop .btn_box p br{display: none;}
+
 
     /* 간편가입신청서 */
     .apply_wrap{padding-bottom: 80px;}
@@ -664,6 +686,48 @@
     .manager_detail_cont .msg_feed_box .msg_list_box .msg_list>li .txt_box .txt{max-width: 100%;}
     .manager_detail_cont .msg_feed_box .msg_list_box .msg_list>li .txt_box .txt + div{padding-left: 0;width: 100%;}
     .manager_detail_cont .msg_feed_box .square_list_cont ul li{width: calc(50% - 7.5px);margin: 0 15px 32px 0 !important;}
+
+    /* VIP 소개팅 */
+    .about_vip_wrap .main_visual{height: auto;}
+    .about_vip_wrap .main_visual:before{display: none;}
+    .about_vip_wrap .main_visual .txt_box{padding: 90px 0 78px;}
+    .about_vip_wrap .main_visual .txt_box img{max-width: 70%;}
+    .about_vip_wrap .main_visual .txt_box .txt{padding-top: 40px;}
+    .vip_sect1{padding-top: 60px;}
+    .vip_sect1::before{top: 30%;}
+    .vip_sect1 .tit p{font-size: 36px;}
+    .vip_slider_wrap{padding-top: 32px;}
+    .vip_slider{padding-bottom: 25px;}
+    .vip_slider .swiper-wrapper{height: 256px;}
+    .vip_sect2{padding-top: 40px;}
+    .vip_sect2 .txt{font-size: 16px;}
+    .vip_sect2 .txt_box p{font-size: 32px;}
+    .vip_sect2 .txt_box p strong{font-size: 40px;font-weight: 700;}
+    .vip_sect3{padding: 40px 0 80px;}
+    .vip_sect3 .img_box{width: calc(100% + 40px);margin-left: -20px;}
+    .vip_sect3 .txt_box{padding: 60px 0 0;}
+    .vip_sect3 .txt_box img{max-width: 122px;}
+    .vip_sect3 .txt_box .txt{padding: 12px 0 40px;font-size: 36px;}
+    .vip_sect3 .txt_box .txt2{font-size: 20px;}
+    .vip_sect3 .txt_box .txt2 strong{font-size: 32px;}
+    .vip_sect3 .txt_box .txt2 strong::before{display: none;}
+    .vip_sect3 .txt_box .txt3{padding-top: 40px;}
+    .vip_sect3 .txt_box .txt4{padding-top: 40px;}
+    .vip_sect4{padding-top: 60px;}
+    .vip_apply_cont .txt_box .tit{font-size: 36px;padding-left: 60px;margin-bottom: 28px;}
+    .vip_apply_cont .txt_box .tit::after{width: 40px;height: 40px;background-size: 100%;top: 4px;}
+    .vip_apply_cont .txt_box .txt{font-size: 20px;}
+    .vip_apply_cont .txt_box .txt2{padding-top: 8px;}
+    .vip_apply_cont .box{margin-top: 40px;padding: 36px 16px;}
+    .vip_apply_cont .box .txt{font-size: 20px;padding-bottom: 32px;}
+    .vip_apply_cont .box .img_ul{padding-bottom: 12px;}
+    .vip_apply_cont .box .img_ul li{width: calc(50% - 5px);padding-bottom: 20px;}
+    .vip_apply_cont .box .img_ul li p{font-size: 16px;}
+    .vip_apply_cont .btn_box::after{display: none;}
+    .vip_sect5{padding: 60px 0 80px;}
+    .vip_sect5 .gray_box{padding: 24px 20px;}
+    .vip_sect5 .gray_box .txt_ul2{padding: 12px;}
+    .vip_sect5 .gray_box .txt_ul2 li{font-size: 16px;}
 
     
     /* 랭킹 */

@@ -7,6 +7,7 @@ import ReplyBox from "./ReplyBox";
 const Comment = ({
     data, 
     editBoxOn, 
+    editBox,
     onEditBoxClickHandler, 
     onEditHandler, 
     onDeltHandler, 
@@ -30,8 +31,8 @@ const Comment = ({
                 </div>
                 <EditBox 
                     editBoxIdx={data.comment_idx}
-                    editBoxId={data.m_id}
                     editBoxOn={editBoxOn}
+                    editBox={editBox}
                     onEditBoxClickHandler={onEditBoxClickHandler}
                     onEditHandler={onEditHandler}
                     onDeltHandler={onDeltHandler}
@@ -72,8 +73,8 @@ const Comment = ({
                         <ReplyBox 
                             data={cont}
                             editBoxIdx={cont.comment_idx}
-                            editBoxId={cont.m_id}
                             editBoxOn={editBoxOn}
+                            editBox={editBox}
                             onEditBoxClickHandler={onEditBoxClickHandler}
                             onEditHandler={onEditHandler}
                             onDeltHandler={onDeltHandler}

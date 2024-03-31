@@ -2,18 +2,16 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Scrollbar, Navigation, EffectFade, Controller, Grid } from "swiper/modules";
+import { Pagination, Scrollbar, Navigation, Grid } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/navigation";
 import 'swiper/css/grid';
 import axios from "axios";
-import { Formik } from "formik";
-import { PatternFormat } from "react-number-format";
 import * as CF from "../config/function";
 import { enum_api_uri } from "../config/enum";
-import { confirmPop, vipApplyPop } from "../store/popupSlice";
+import { confirmPop, vipApplyPop, applyPop } from "../store/popupSlice";
 import ConfirmPop from "../components/popup/ConfirmPop";
 import main_txt_img from "../images/about_vip_main_txt.png";
 import main_img from "../images/about_vip_main_img.png";
@@ -34,10 +32,8 @@ import vip_sect5_img4 from "../images/vip_sect5_img4.png";
 const AboutVIP = () => {
     const dispatch = useDispatch();
     const popup = useSelector((state)=>state.popup);
-    const policy_cont = enum_api_uri.policy_cont;
-    const m_address = enum_api_uri.m_address;
-    const m_address2 = enum_api_uri.m_address2;
-    const date_apply = enum_api_uri.date_apply;
+    const user = useSelector((state)=>state.user);
+    const vip_list = enum_api_uri.vip_list;
     const [confirm, setConfirm] = useState(false);
     const sect1Ref = useRef(null);
     const sect2Ref = useRef(null);
@@ -50,7 +46,9 @@ const AboutVIP = () => {
     const [sect3On, setSect3On] = useState(false);
     const [sect4On, setSect4On] = useState(false);
     const [sect5On, setSect5On] = useState(false);
-    const [vipList, setVipList] = useState([1,2,3,4,5,6,7,8,9]);
+    const [vipList, setVipList] = useState([]);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [vipSwiperKey, setVipSwiperKey] = useState(0); // Swiper의 key를 상태로 관리
 
 
     // Confirm팝업 닫힐때
@@ -79,14 +77,54 @@ const AboutVIP = () => {
             }
         });
     };
-
+    
     useEffect(() => {    
+        getVipList();
+
+        const handleWindowResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
         window.addEventListener("scroll", scrollSectOn);
+        window.addEventListener('resize', handleWindowResize);
 
         return () => {
             window.removeEventListener("scroll", scrollSectOn);
+            window.removeEventListener('resize', handleWindowResize);
         };
     }, []);
+
+
+    useEffect(() => {
+        // key 값을 변경하여 Swiper를 새로고침
+        setVipSwiperKey(prevKey => prevKey + 1);
+    }, [windowWidth]);
+
+
+    //VIP 회원리스트 가져오기
+    const getVipList = () => {
+        axios.get(`${vip_list}`,
+            {headers:{Authorization: `Bearer ${user.userToken}`}}
+        )
+        .then((res)=>{
+            if(res.status === 200){
+                const data = res.data;
+                setVipList(data);
+            }
+        })
+        .catch((error) => {
+            const err_msg = CF.errorMsgHandler(error);
+            dispatch(confirmPop({
+                confirmPop:true,
+                confirmPopTit:'알림',
+                confirmPopTxt: err_msg,
+                confirmPopBtn:1,
+            }));
+            setConfirm(true);
+        }); 
+    };
+
+
+    
     
 
     return(<> 
@@ -117,25 +155,34 @@ const AboutVIP = () => {
                 <div className="vip_slider_wrap">
                     <div className="cont4">
                         <Swiper 
+                            key={vipSwiperKey} // key 속성을 변경하여 Swiper를 다시 렌더링
                             className={`vip_slider`}
-                            slidesPerView={4}
+                            slidesPerView={2}
                             grid={{
                                 rows: 2,
                                 fill: 'column'
                             }}
-                            spaceBetween={40}
+                            spaceBetween={10}
                             observer={true}
                             observeParents={true}
                             navigation={{nextEl: `.vip_slider_wrap .swiper-button-next`,prevEl: `.vip_slider_wrap .swiper-button-prev`}}
                             scrollbar={{draggable: true}}
                             ref={vipSliderRef}
                             modules={[Grid, Pagination, Scrollbar, Navigation]}
+                            breakpoints={
+                                {
+                                    1420:{slidesPerView:4,spaceBetween:40},//width >= 1420
+                                    1200:{slidesPerView:3,spaceBetween:40},//width >= 1200
+                                    768:{slidesPerView:2,spaceBetween:40},//width >= 768
+                                }
+                            }
                         >
                             {vipList.map((cont,i)=>{
                                 return(
                                     <SwiperSlide key={i}>
                                         <div className="img_box">
                                             <img src="https://jja-gg.com/upload/board/Imeeting20240206162435_1.________.jpg" alt="vip 회원" />
+                                            <p>실제 사소한 VIP 회원입니다.</p>
                                         </div>
                                     </SwiperSlide>
                                 );
@@ -157,6 +204,7 @@ const AboutVIP = () => {
                         <div className="txt_box">
                             <div className="line"></div>
                             <div className="mo_none"><img src={vip_sect2_txt_img} alt="vip 소개팅" /></div>
+                            <p><strong>VIP 회원과의 만남,</strong><br/>사소한에선 가능합니다!</p>
                         </div>
                     </div> 
                 </div>
@@ -215,7 +263,7 @@ const AboutVIP = () => {
                                 </li>
                             </ul>
                             <div className="btn_box">
-                                <button type="button">소개팅을 신청해 보세요!</button>
+                                <button type="button" onClick={()=>dispatch(applyPop(true))}>소개팅을 신청해 보세요!</button>
                             </div>
                         </div>
                     </div>
