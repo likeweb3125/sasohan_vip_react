@@ -18,7 +18,6 @@ import * as CF from "../config/function";
 import util from "../config/util";
 import m_visual_tag from "../images/main_visual_tag.svg";
 import m_visual_img1 from "../images/main_visual_txt1.png";
-import m_visual_img2 from "../images/main_visual_txt2.png";
 import tip_box_img from "../images/tip_box.svg";
 import tip_box_img_mo from "../images/tip_box_mo.svg";
 import ic_badge from "../images/ic_badge.svg";
@@ -425,7 +424,6 @@ const Main = () => {
                 </div>
                 <div className="visual_txt">
                     <img src={m_visual_img1} alt="메인이미지" className="img1" />
-                    <img src={m_visual_img2} alt="메인이미지" className="img2" />
                 </div>
                 <div className="scroll">
                     <strong>Scroll</strong>
@@ -715,7 +713,6 @@ const Main = () => {
                             spaceBetween={28}
                             pagination={{ el: ".blog_slider .swiper-pagination", clickable: true }}
                             loop={true}
-                            loopedSlides={2}
                             speed={400}
                             centeredSlides={true}
                             observer={true}

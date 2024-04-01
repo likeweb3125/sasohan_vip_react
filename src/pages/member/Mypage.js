@@ -7,6 +7,8 @@ import { enum_api_uri } from "../../config/enum";
 import { heightList, visualList, mbtiList, smokList, drinkList } from "../../config/constants";
 import * as CF from "../../config/function";
 import { confirmPop, loadingPop, profileEditPop } from "../../store/popupSlice";
+import { myPageRefresh } from "../../store/commonSlice";
+import { userInfo, userRank } from "../../store/userSlice";
 import ConfirmPop from "../../components/popup/ConfirmPop";
 import MyProfileForm from "../../components/component/MyProfileForm";
 import MyProfileForm2 from "../../components/component/MyProfileForm2";
@@ -29,6 +31,7 @@ const Mypage = () => {
     const profile2_modify = enum_api_uri.profile2_modify;
     const popup = useSelector((state)=>state.popup);
     const user = useSelector((state)=>state.user);
+    const common = useSelector((state)=>state.common);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [confirm, setConfirm] = useState(false);
     const [tabOn, setTabOn] = useState(1);
@@ -59,6 +62,7 @@ const Mypage = () => {
     const [feedImgNameList, setFeedImgNameList] = useState([]);
     const [feedImgList, setFeedImgList] = useState([]);
     const [getRank, setGetRank] = useState(false);
+    const [myBasicInfo, setMyBasicInfo] = useState(false);
     
 
 
@@ -94,9 +98,24 @@ const Mypage = () => {
         .then((res)=>{
             if(res.status === 200){
                 const data = res.data;
-                setMyInfo(data.my_info);
-                setProfile(data.my_type);
-                setProfile2(data.ideal_type);
+                const my_info = data.my_info;
+                const my_type = data.my_type;
+                const ideal_type = data.ideal_type;
+                setMyInfo(my_info);
+                setProfile(my_type);
+                setProfile2(ideal_type);
+
+                //기본정보값 있는지 없는지
+                setMyBasicInfo(data.modify_flag);
+
+                const newUserInfo = {...user.userInfo};
+                newUserInfo.m_id = my_info.m_id;
+                newUserInfo.m_n_name = my_info.m_n_name;
+                newUserInfo.m_address_origin = my_type.m_address_origin;
+                newUserInfo.m_address_full = my_type.m_address_full;
+                newUserInfo.m_address = my_type.m_address;
+                newUserInfo.m_f_photo = my_info.feed_profile;
+                dispatch(userInfo(newUserInfo));
             }
         })
         .catch((error) => {
@@ -166,6 +185,16 @@ const Mypage = () => {
                 }
 
                 setFeedProfile(feedData);
+
+                //회원랭킹정보 store 에 저장
+                const resultData = res.data;
+                let rank = false;
+                let rankData = {};
+                if(resultData.flag){
+                    rank = true;
+                    rankData = data;
+                }
+                dispatch(userRank({userRank:rank, userRankData:rankData}));
             }
         })
         .catch((error) => {
@@ -261,6 +290,32 @@ const Mypage = () => {
         //회원피드프로필 가져오기
         getFeddProfile();
     },[]);
+
+
+    //회원정보 변경시 정보 다시가져오기
+    useEffect(()=>{
+        if(common.myPageRefresh){
+            dispatch(myPageRefresh(false));
+            getAddress();
+            getSelectList();
+            getAllProfile();
+            getFeddProfile();
+        }
+    },[common.myPageRefresh]);
+
+    
+    useEffect(()=>{
+        if(profile.m_address){
+            let addr = '';
+            if(profile.m_address.includes('·')){
+                addr = profile.m_address.replace('·','');
+            }else{
+                addr = profile.m_address;
+            }
+            profile.m_address = addr;
+            setProfile(profile);
+        }
+    },[profile]);
 
 
     //회원 랭킹정보 - 클래스번호 값 가져오기
@@ -1045,13 +1100,12 @@ const Mypage = () => {
     };
 
 
-    
 
     //피드 프로필 프로필수정 버튼 클릭시
     const feedProfileEditHandler = () => {
         const data = {
-            m_n_name: user.userInfo.m_n_name,
-            photo: user.userInfo.m_f_photo
+            m_n_name: feedProfile.m_n_name,
+            photo: feedProfile.m_f_photo
         };
         dispatch(profileEditPop({profileEditPop:true,profileEditPopData:data}));
     };
@@ -1075,7 +1129,7 @@ const Mypage = () => {
                                 <p className="txt2">{myInfo.m_id}</p>
                                 <ul className='gray_name_box flex_wrap'>
                                     <li>{myInfo.m_name}</li>
-                                    <li>{user.userInfo.m_address} / {user.userInfo.birth}</li>
+                                    <li>{profile.m_address} / {user.userInfo.birth}</li>
                                 </ul>
                             </div>
                         </div>
@@ -1115,11 +1169,15 @@ const Mypage = () => {
                                             <div className="box name_box my_data">
                                                 <div className="inner_box flex_start flex_wrap">
                                                     <div className="flex_top">
-                                                        <div className="img">
-                                                            {feedProfile.myPhoto ?
-                                                                <img src={feedProfile.m_f_photo} alt="프로필이미지" />
-                                                                :<img src={require(`../../images/random_profile${feedProfile.profile_num}.svg`)} alt="랜덤프로필이미지" />
-                                                            }
+                                                        <div className={`profile_img_box class_${feedProfile.class_number}`}>   
+                                                            <div className='img'>
+                                                                <div>
+                                                                    {feedProfile.myPhoto ?
+                                                                        <img src={feedProfile.m_f_photo} alt="프로필이미지" />
+                                                                        :<img src={require(`../../images/random_profile${feedProfile.profile_num}.svg`)} alt="랜덤프로필이미지" />
+                                                                    }
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <p className={`name${feedProfile.M_N_Name_modify === 1 ? ' color_black' : ''}`}>{feedProfile.m_n_name}</p>
                                                     </div>
@@ -1166,7 +1224,13 @@ const Mypage = () => {
                                 </ul>
                                 <div className="cont">
                                     <div className="inner">
-                                        {tabOn === 1 ? //나의 프로필일때
+                                        {!myBasicInfo ? 
+                                            <div className="none_info_box tx_c">
+                                                <p className="top_tit"><strong>기본 정보를 입력해 주세요.</strong></p>
+                                                <p className="txt">기본정보를 입력하면 소개팅 프로필을 입력하실 수 있어요. <br/>더 좋은 인연과의 만남을 위해 기본정보를 수정해 주세요.</p>
+                                                <Link to={`/member/mypage/myinfo`} className="btn_type4">기본정보 수정</Link>
+                                            </div>
+                                        : myBasicInfo && tabOn === 1 ? //나의 프로필일때
                                             <>
                                                 <p className="top_tit"><strong>내 프로필 정보</strong>로 어필해 보세요!</p>
                                                 <ul className="form_ul2">
@@ -1208,7 +1272,7 @@ const Mypage = () => {
                                                     />
                                                 </ul>
                                             </>
-                                            : tabOn === 2 && //이상형 프로필일때
+                                        : myBasicInfo && tabOn === 2 && //이상형 프로필일때
                                             <>
                                                 <p className="top_tit"><strong>이상형 정보</strong>를 입력해 보세요.</p>
                                                 <ul className="form_ul2">
@@ -1234,9 +1298,11 @@ const Mypage = () => {
                                                 </ul>
                                             </>
                                         }
-                                        <div className="tm40">
-                                            <button type="button" className="btn_type3" onClick={editBtnClickHandler}>프로필 수정</button>
-                                        </div>
+                                        {myBasicInfo &&
+                                            <div className="tm40">
+                                                <button type="button" className="btn_type3" onClick={editBtnClickHandler}>프로필 수정</button>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>

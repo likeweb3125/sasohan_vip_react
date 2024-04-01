@@ -4,6 +4,7 @@ import axios from "axios";
 import { enum_api_uri } from "../../config/enum";
 import * as CF from "../../config/function";
 import { profileEditPop, profileEditPopDone, confirmPop } from "../../store/popupSlice";
+import { myPageRefresh } from "../../store/commonSlice";
 import none_profile from "../../images/none_profile.jpg";
 import InputBox from "../component/InputBox";
 import ConfirmPop from "./ConfirmPop";
@@ -15,6 +16,7 @@ const ProfileEditPop = () => {
     const user = useSelector((state)=>state.user);
     const rank_profile_img = enum_api_uri.rank_profile_img;
     const rank_profile = enum_api_uri.rank_profile;
+    const rank_profile_img_delt = enum_api_uri.rank_profile_img_delt;
     const [confirm, setConfirm] = useState(false);
     const [errorConfirm, setErrorConfirm] = useState(false);
     const [name, setName] = useState("");
@@ -22,6 +24,7 @@ const ProfileEditPop = () => {
     const [errorName, setErrorName] = useState(false);
     const [profileImg, setProfileImg] = useState("");
     const [profileImgName, setProfileImgName] = useState("");
+    const [deltImgList, setDeltImgList] = useState([]);
 
 
     // Confirm팝업 닫힐때
@@ -89,6 +92,12 @@ const ProfileEditPop = () => {
     const imgDeltHandler = () => {
         setProfileImg("");
         setProfileImgName("");
+
+        //삭제할 이미지 배열로 저장
+        const newDeltImgList = [...deltImgList];
+        newDeltImgList.push(profileImgName);
+        console.log(newDeltImgList);  
+        setDeltImgList(newDeltImgList);      
     };
 
 
@@ -112,8 +121,45 @@ const ProfileEditPop = () => {
     };
 
 
-    //프로필수정하기
+    //프로필 수정진행 -> 삭제할이미지 있으면 삭제후 프로필수정
     const editHandler = () => {
+        if(deltImgList.length > 0){
+            // 삭제할 이미지가 있는 경우 각 이미지를 순회하며 삭제
+            deltImgList.forEach((imageName, index) => {
+                profileImgDelt(imageName, index === deltImgList.length - 1); // 각 이미지를 삭제하는 함수 호출
+            });
+        }else{
+            profileEdit();
+        }
+    };
+
+
+    //프로필 이미지 삭제하기
+    const profileImgDelt = (imageName, isLast) => {
+        axios.delete(rank_profile_img_delt.replace(':filename',imageName))
+        .then((res)=>{
+            if(res.status === 200){
+                if (isLast) {
+                    // 마지막 이미지 삭제 후 프로필 수정 함수 호출
+                    profileEdit();
+                }
+            }
+        })
+        .catch((error) => {
+            const err_msg = CF.errorMsgHandler(error);
+            dispatch(confirmPop({
+                confirmPop:true,
+                confirmPopTit:'알림',
+                confirmPopTxt: err_msg,
+                confirmPopBtn:1,
+            }));
+            setConfirm(true);
+        });
+    };
+
+
+    //프로필수정하기
+    const profileEdit = () => {
         const body = {
             m_n_name: name,
             photo: [profileImgName],
@@ -131,6 +177,8 @@ const ProfileEditPop = () => {
                     m_f_photo: profileImg 
                 };
                 dispatch(profileEditPopDone({profileEditPopDone:true,profileEditPopDoneData:data}));
+
+                dispatch(myPageRefresh(true));
 
                 closePopHandler();
             }

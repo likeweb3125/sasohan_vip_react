@@ -139,7 +139,7 @@ const UserDelt = () => {
             m_code: code
         }
 
-        axios.post(user_delt, body,{
+        axios.post(user_delt,body,{
             headers: {
                 Authorization: `Bearer ${user.userToken}`,
             },

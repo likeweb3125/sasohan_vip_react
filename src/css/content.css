@@ -217,7 +217,8 @@
 .mypage_cont .ranking_ul_box .list_ul>li .box{border-bottom: none;padding: 12px 0;}
 .mypage_cont .feed_profile_box .profile_box{margin-bottom: 0;}
 .mypage_cont .feed_profile_box .profile_box .shadow_box .inner{padding: 60px 0;}
-.mypage_cont .feed_profile_box .profile_box .shadow_box .inner>.top_tit{text-align: center;font-size: 28px;}
+.mypage_cont .feed_profile_box .profile_box .shadow_box .inner .top_tit{text-align: center;font-size: 28px;}
+.mypage_cont .feed_profile_box .profile_box .shadow_box .inner .none_info_box .txt{padding-bottom:40px;font-size: 18px;color: #666;}
 
 /* 스퀘어 */
 .square_list_wrap{padding: 200px 0;}

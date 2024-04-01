@@ -280,6 +280,7 @@ const Login = () => {
         .then((res)=>{
             if(res.status === 200){
                 const info = res.data;
+                
                 //매니저일때
                 if(info.user_level == 'M'){
                     //매니저 프로필정보 가져오기

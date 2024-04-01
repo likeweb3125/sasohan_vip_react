@@ -131,6 +131,14 @@ const ApplyPop = () => {
     },[]);
 
 
+    //선택한 지역리스트 값 변경시 전지역 체크박스값 변경
+    useEffect(()=>{
+        if(addrSelectList.length > 0){
+            setAllAddressCheck(false);
+        }
+    },[addrSelectList]);
+
+
     //선호지역 삭제하기
     const addrDeltHandler = (idx) => {
         // addrSelectList 배열에서 특정 인덱스의 값을 삭제하고 새로운 배열을 생성
@@ -194,11 +202,16 @@ const ApplyPop = () => {
             }));
             setConfirm(true);
         }else{
+            let addr = addrSelectList;
+            if(allAddressCheck){
+                addr = ['전지역'];
+            }
+
             let body = {
                 name: values.name,
                 year: values.year,
                 gender: values.gender,
-                address1: addrSelectList,
+                address1: addr,
                 tel: tel,
             };
 
@@ -319,6 +332,10 @@ const ApplyPop = () => {
                                                                 const checked = e.currentTarget.checked;
                                                                 if(checked){
                                                                     setAllAddressCheck(true);
+
+                                                                    setFieldValue("address1","");
+                                                                    setFieldValue("address2","");
+                                                                    setAddrSelectList([]); //선택한지역 리스트 삭제
                                                                 }else{
                                                                     setAllAddressCheck(false);
                                                                 }

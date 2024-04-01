@@ -33,7 +33,6 @@ exports.enum_api_uri = {
     basic_profile_modify: `${api_uri}/v1/main-mypage/profile-modify`,
     profile_modify: `${api_uri}/v1/main-mypage/type-modify`,
     profile2_modify: `${api_uri}/v1/main-mypage/ideal-modify`,
-
     user_delt_code: `${api_uri}/v1/main-mypage/leave-sign`,
     user_delt: `${api_uri}/v1/main-mypage/leave`,
 
@@ -55,6 +54,7 @@ exports.enum_api_uri = {
     guest_book_delt: `${api_uri}/v1/manager-feed/guest-book-delete/:idx`,
     manager_feed_list: `${api_uri}/v1/main/feed-list/:m_id`,
     feed_img: `${api_uri}/v1/manager/manager-image-add`,
+    feed_img_delt: `${api_uri}/v1/manager/feed-image-remove`,
     feed_add: `${api_uri}/v1/manager/feed-add`,
     feed_modify: `${api_uri}/v1/manager/feed-modify`,
     
@@ -74,7 +74,7 @@ exports.enum_api_uri = {
     rank_token: `${api_uri}/v1/main/ranking-token`,
     rank_profile_img: `${api_uri}/v1/main/ranking-profile/image-add`,
     rank_profile_img_delt: `${api_uri}/v1/main/ranking-profile/image-remove/:filename`,
-    rank_profile: `${api_uri}/v1/main/ranking-profile/modify`,
+    rank_profile: `${api_uri}/v1/main-mypage/ranking-profile/modify`,
 
 
     //앱----------------------------------------

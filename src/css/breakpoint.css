@@ -396,7 +396,7 @@
     .content_wrap{margin-top: -70px;}
     .main_visual{height: 460px;border-radius: 0 0 40px 0;}
     .main_visual:after{background: url(../images/visual_t_mo.png) no-repeat 50% 50%;width: 187px;height: 517px;bottom: -70px;}
-    .main_visual .visual_txt{width: 256px;height: 264px;}
+    .main_visual .visual_txt{width: 100%;height: 100%;}
     .main_visual .scroll{padding-bottom: 14px;bottom: 24px;}
     .main_visual .scroll:after{width: 12px;height: 6px;}
     .main_visual .scroll strong{font-size: 12px;}
@@ -644,8 +644,10 @@
     .mypage_cont .feed_profile_box{padding-top: 40px;}
     .mypage_cont .feed_profile_box>.box{margin-bottom: 40px;}
     .mypage_cont .feed_profile_box .profile_box .shadow_box .inner{padding: 40px 0;}
-    .mypage_cont .feed_profile_box .profile_box .shadow_box .inner>.top_tit{font-size: 24px;}
+    .mypage_cont .feed_profile_box .profile_box .shadow_box .inner .top_tit{font-size: 24px;}
     .mypage_cont .feed_profile_box>.profile_box .shadow_box{width: calc(100% + 40px);margin-left: -20px;}
+    .mypage_cont .feed_profile_box .profile_box .shadow_box .inner .none_info_box .txt{font-size: 16px;}
+    .mypage_cont .feed_profile_box .profile_box .shadow_box .inner .none_info_box .txt br{display: none;}
 
     /* 스퀘어 */
     .square_list_wrap{padding: 100px 0;}
@@ -699,6 +701,9 @@
     .vip_slider_wrap{padding-top: 32px;}
     .vip_slider{padding-bottom: 25px;}
     .vip_slider .swiper-wrapper{height: 256px;}
+    .vip_slider .swiper-slide .img_box{border-width: 1px;}
+    .vip_slider .swiper-slide .img_box::after{background-size: 52px;}
+    .vip_slider .swiper-slide .img_box p{font-size: 12px;padding-top: 10px;}
     .vip_sect2{padding-top: 40px;}
     .vip_sect2 .txt{font-size: 16px;}
     .vip_sect2 .txt_box p{font-size: 32px;}

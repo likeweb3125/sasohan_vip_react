@@ -21,6 +21,7 @@ const Header = () => {
     const [menuWrap, setMenuWrap] = useState(false);
     const [login, setLogin] = useState(false);
     const [userClassNum, setUserClassNum] = useState(null);
+    const [myInfo, setMyInfo] = useState({});
 
 
     // Confirm팝업 닫힐때
@@ -61,18 +62,25 @@ const Header = () => {
         if(path == "/"){
             setMenuOn(1);
             setMainPage(true);
+        }else if(path == '/about-vip'){
+            setMenuOn(2);
+            setMainPage(true);
         }else{
             setMenuOn(null);
             setMainPage(false);
         }
+
+        if(path.includes('/square')){
+            setMenuOn(3);
+        }
         
         if(path == "/ranking"){
-            setMenuOn(2);
+            setMenuOn(4);
         }
     },[location]);
 
 
-    //메인페이지일때만 headerOn false
+    //메인페이지, VIP소개팅 페이지일때만 headerOn false
     useEffect(()=>{
         if(mainPage){
             setHeaderOn(false);
@@ -86,6 +94,22 @@ const Header = () => {
     useEffect(()=>{
         setLogin(user.userLogin);
     },[user.userLogin]);
+
+
+    //회원기본정보 값 변경시
+    useEffect(()=>{
+        let newMyInfo = {...user.userInfo};
+        if(newMyInfo.m_address){
+            let addr = '';
+            if(newMyInfo.m_address.includes('·')){
+                addr = newMyInfo.m_address.replace('·','');
+            }else{
+                addr = newMyInfo.m_address;
+            }
+            newMyInfo.m_address = addr;
+        }
+        setMyInfo(newMyInfo);
+    },[user.userInfo]);
 
 
     //회원 랭킹정보 - 클래스번호 값 가져오기
@@ -105,6 +129,8 @@ const Header = () => {
         dispatch(userLogin(false));
         dispatch(userToken(''));
         dispatch(userRank({userRank:false, userRankData:{}}));
+
+        navigate('/');
     };
 
 
@@ -118,8 +144,8 @@ const Header = () => {
                 <nav className="gnb_wrap">
                     <ul className="gnb">
                         <li className={menuOn === 1 ? "on" : ""}><Link to="/">About 사소한</Link></li>
-                        <li className=''><Link to="/about-vip">VIP 소개팅</Link></li>
-                        <li className='is_submenu'>
+                        <li className={menuOn === 2 ? "on" : ""}><Link to="/about-vip">VIP 소개팅</Link></li>
+                        <li className={`is_submenu${menuOn === 3 ? " on" : ""}`}>
                             <Link to="/square/all-feed">사소한 스퀘어</Link>
                             <div className='submenu_box'>
                                 <ul>
@@ -128,7 +154,7 @@ const Header = () => {
                                 </ul>
                             </div>
                         </li>
-                        <li className={menuOn === 2 ? "on" : ""}><Link to="/ranking">사소한 랭킹</Link></li>
+                        <li className={menuOn === 4 ? "on" : ""}><Link to="/ranking">사소한 랭킹</Link></li>
                     </ul>
                 </nav>
                 <div className='utill_wrap flex'>
@@ -137,16 +163,16 @@ const Header = () => {
                             <div className='flex'>
                                 <div className={`profile_img_box${user.userRank ? ' class_'+userClassNum : ''}`}>
                                     <div className='img'>
-                                        <div><img src={user.userInfo.m_f_photo} alt='프로필이미지' /></div>
+                                        <div><img src={myInfo.m_f_photo} alt='프로필이미지' /></div>
                                     </div>
                                 </div>
-                                <p className='txt'>{user.userInfo.m_n_name}</p>
+                                <p className='txt'>{myInfo.m_n_name}</p>
                             </div>
                             <div className='submenu_box'>
                                 <ul>
                                     <li>
-                                        {user.userInfo.user_level == 'U' ? <Link to={'/member/mypage'}>마이 프로필</Link> //일반회원일때 마이페이지로 이동
-                                            : user.userInfo.user_level == 'M' && <Link to={'/square/manager/'+user.userInfo.m_id}>마이 프로필</Link> //매니저일때 매니저상세페이지로 이동
+                                        {myInfo.user_level == 'U' ? <Link to={'/member/mypage'}>마이 프로필</Link> //일반회원일때 마이페이지로 이동
+                                            : myInfo.user_level == 'M' && <Link to={'/square/manager/'+myInfo.m_id}>마이 프로필</Link> //매니저일때 매니저상세페이지로 이동
                                         }
                                     </li>
                                     <li><button type='button' onClick={logoutHandler}>로그아웃</button></li>
@@ -178,27 +204,27 @@ const Header = () => {
                                     <div className='flex pointer'
                                         onClick={()=>{
                                             //일반회원일때 마이페이지로 이동
-                                            if(user.userInfo.user_level == 'U'){
+                                            if(myInfo.user_level == 'U'){
                                                 navigate('/member/mypage');
                                             }
                                             //매니저일때 매니저상세페이지로 이동
-                                            if(user.userInfo.user_level == 'M'){
-                                                navigate('/square/manager/'+user.userInfo.m_id);
+                                            if(myInfo.user_level == 'M'){
+                                                navigate('/square/manager/'+myInfo.m_id);
                                             }
                                         }}
                                     >
                                         <div className={`profile_img_box${user.userRank ? ' class_'+userClassNum : ''}`}>
                                             <div className='img'>
-                                                <div><img src={user.userInfo.m_f_photo} alt='프로필이미지' /></div>
+                                                <div><img src={myInfo.m_f_photo} alt='프로필이미지' /></div>
                                             </div>
                                         </div>
-                                        <p className='txt'>{user.userInfo.m_n_name}</p>
+                                        <p className='txt'>{myInfo.m_n_name}</p>
                                     </div>
-                                    {user.userInfo.user_level == 'U' && //일반회원일때만 노출
+                                    {myInfo.user_level == 'U' && //일반회원일때만 노출
                                         <div className='over_hidden'>
                                             <ul className='gray_name_box flex_wrap'>
-                                                <li>{user.userInfo.m_name}</li>
-                                                <li>{user.userInfo.m_address} / {user.userInfo.birth}</li>
+                                                <li>{myInfo.m_name}</li>
+                                                <li>{myInfo.m_address} / {myInfo.birth}</li>
                                             </ul>
                                         </div>
                                     }
@@ -222,11 +248,11 @@ const Header = () => {
                             <li className={menuOn === 1 ? "on" : ""}>
                                 <Link to="/">About 사소한</Link>
                             </li>
-                            <li className=''>
+                            <li className={menuOn === 2 ? "on" : ""}>
                                 <Link to="/about-vip">VIP 소개팅</Link>
                             </li>
-                            <li className=''>
-                                <Link to="/">사소한 스퀘어</Link>
+                            <li className={menuOn === 3 ? "on" : ""}>
+                                <Link to="/square/all-feed">사소한 스퀘어</Link>
                                 <ul className='submenu_ul flex_center'>
                                     <li>
                                         <Link to={'/square/all-feed'}>피드 스퀘어</Link>
@@ -236,7 +262,7 @@ const Header = () => {
                                     </li>
                                 </ul>
                             </li>
-                            <li className={menuOn === 2 ? "on" : ""}>
+                            <li className={menuOn === 4 ? "on" : ""}>
                                 <Link to="/ranking">사소한 랭킹</Link>
                             </li>
                         </ul>

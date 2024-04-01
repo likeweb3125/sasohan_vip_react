@@ -253,11 +253,9 @@ const VipApplyPop = () => {
         const body = {
             age: values.age,
             phone: values.phone,
-            phhto: imgNameList,
+            photo: imgNameList,
         };
-        axios.post(`${vip_apply}`,body,
-            {headers:{Authorization: `Bearer ${user.userToken}`}}
-        )
+        axios.post(`${vip_apply}`,body)
         .then((res)=>{
             if(res.status === 200){
                 setApplyOkConfirm(true);

@@ -17,12 +17,14 @@ const FeedAddPop = () => {
     const api_uri = enum_api_uri.api_uri;
     const feed_content = enum_api_uri.feed_content;
     const feed_img = enum_api_uri.feed_img;
+    const feed_img_delt = enum_api_uri.feed_img_delt;
     const feed_add = enum_api_uri.feed_add;
     const feed_modify = enum_api_uri.feed_modify;
     const [confirm, setConfirm] = useState(false);
     const [feedAddOkconfirm, setFeedAddOkConfirm] = useState(false);
     const [imgNameList, setImgNameList] = useState([]);
     const [imgList, setImgList] = useState([]);
+    const [deltImgList, setDeltImgList] = useState([]);
     const [content, setContent] = useState('');
 
 
@@ -131,6 +133,12 @@ const FeedAddPop = () => {
         let newList = [...imgList];
         newList.splice(idx,1);
         setImgList(newList);
+
+        //삭제이미지 이름 배열로 저장
+        let newDeltImgList = [...deltImgList];
+        const filename = url.substring(url.lastIndexOf('/') + 1);
+        newDeltImgList.push(filename)
+        setDeltImgList(newDeltImgList);
     };
 
 
@@ -225,8 +233,43 @@ const FeedAddPop = () => {
     };
 
 
-    //피드 수정하기
+    //피드 수정진행 -> 삭제할이미지 있으면 삭제후 피드수정
     const feedEditHandler = () => {
+        if(deltImgList.length > 0){
+            feedImgDelt();
+        }else{
+            feedEdit();
+        }
+    };
+
+
+    //피드 이미지 삭제하기
+    const feedImgDelt = () => {
+        axios.delete(`${feed_img_delt}?filename=${deltImgList}`,{
+            headers: {
+                Authorization: `Bearer ${user.userToken}`,
+            },
+        })
+        .then((res)=>{
+            if(res.status === 200){
+                feedEdit();
+            }
+        })
+        .catch((error) => {
+            const err_msg = CF.errorMsgHandler(error);
+            dispatch(confirmPop({
+                confirmPop:true,
+                confirmPopTit:'알림',
+                confirmPopTxt: err_msg,
+                confirmPopBtn:1,
+            }));
+            setConfirm(true);
+        });
+    };
+
+
+    //피드 수정하기
+    const feedEdit = () => {
         const body = {
             idx: popup.feedAddPopNo,
             photo: imgNameList,
